@@ -1,4 +1,4 @@
 KindleMenu
 ==========
 
-Commit sample 3
+An html/javascript launcher menu for Kindle Touch/PW
