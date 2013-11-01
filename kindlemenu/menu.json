@@ -1,0 +1,26 @@
+{
+	"items": [
+	{
+		"name": "Kindle Menu",
+		"priority": -999,
+		"items": [
+		{
+			"name": "Show Kindle Menu",
+			"priority": 1,
+			"action": "/mnt/us/extensions/kindlemenu/bin/kindlemenu.sh"
+		},
+		{
+			"name": "Enable status bar shortcut",
+			"priority": 2,
+			"action": "/mnt/us/extensions/kindlemenu/bin/shortcut.sh"
+		},
+		{
+			"name": "Disable status bar shortcut",
+			"priority": 3,
+			"action": "/mnt/us/extensions/kindlemenu/bin/disable_shortcut.sh"
+		}
+		]
+	}
+	]
+}
+

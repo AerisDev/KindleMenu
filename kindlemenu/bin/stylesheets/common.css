@@ -1,0 +1,94 @@
+#traybar {
+background-color:black;
+width:98%;
+margin:0 auto;
+margin-top:4pt;
+height:24pt;
+display:block;
+-webkit-border-radius:3pt;
+-webkit-user-select:none;
+padding:2pt 3pt 2pt 3pt;
+}
+
+.trayicon{
+height:24pt;
+width: 24pt;
+background-color:none;
+display:block;
+margin: 0pt 3pt 0pt 0pt;
+float:left;
+display:block;
+background-repeat:no-repeat;
+background-size:100% 100%;
+-webkit-border-radius:2pt;
+-webkit-user-select:none;
+}
+
+.trayicon:active{
+background-color:#777777;
+}
+
+#buttonsBar{
+width:100%;
+height:39pt;
+position:absolute;
+bottom:10pt;
+right:0pt;
+}
+
+.bottomButton {
+float:right;
+color:#fff;
+padding-top:3pt;
+text-align:center;
+font-size:9.5pt;
+-webkit-border-radius:3pt;
+height:17pt;
+margin-right:2.5%;
+margin-bottom:5pt;
+width:30%;
+line-height:15pt;
+}
+
+.black{
+background-color:black;
+border: 1px solid black;
+}
+
+.black:hover{
+background-color:#595959;
+border: 1px solid #595959;
+}
+
+.gray{
+background-color:#b3b3b3;
+border: 1px solid #b3b3b3;
+}
+
+.exitButton {
+background-image:url('../icons/exit.png');
+background-repeat:no-repeat;
+background-size:13pt 13pt;
+background-position: 80% 5pt;
+}
+
+::-webkit-scrollbar {
+    width: 10pt;
+margin-top:10pt;
+}
+
+::-webkit-scrollbar:horizontal {
+display:none;
+}
+ 
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 4pt rgba(0,0,0,0.3); 
+    border-radius: 8pt;
+
+}
+ 
+::-webkit-scrollbar-thumb {
+    border-radius: 8pt;
+    -webkit-box-shadow: inset 0 0 4pt rgba(0,0,0,0.5);
+background-color:gray;
+}

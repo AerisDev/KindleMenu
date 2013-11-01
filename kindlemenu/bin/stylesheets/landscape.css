@@ -1,0 +1,43 @@
+#appContainer{
+margin:0 auto;
+width:100%;
+height:155pt;
+}
+
+.appOuter{
+border: 1pt solid #2c2c2c;
+height:65.5pt;
+width: 50pt;
+background-color:#2c2c2c;
+display:block;
+margin: 5pt 2.5pt 0pt 2.5pt;
+float:left;
+display:block;
+-webkit-border-radius:3pt;
+-webkit-user-select:none;
+}
+
+.appOuter:hover{
+background-color:gray;
+border: 1pt solid gray;
+}
+
+.appIcon{
+background-color:#ffffff;
+height: 50pt;
+width: 50pt;
+background-size: 89% 89%; /* Don't ask me why, but with this value at least it doesn't show vertical artifacts */
+background-repeat:no-repeat;
+background-position:center;
+-webkit-border-radius:3pt;
+-webkit-user-select:none;
+} 
+
+.appName{
+color:white;
+font-family: Futura;
+font-weight: 500;
+line-height:14pt;
+font-size:8pt;
+text-align:center;
+}

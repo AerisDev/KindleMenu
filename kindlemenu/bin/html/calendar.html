@@ -1,0 +1,63 @@
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+
+
+        <script type="text/javascript" src="///usr/share/webkit-1.0/pillow/strings/sample_custom_dialog_strings.js"></script>
+        <script type="text/javascript" src="///usr/share/webkit-1.0/pillow/javascripts/local_debug.js"></script>
+        <script type="text/javascript" src="///usr/share/webkit-1.0/pillow/javascripts/constants.js"></script>
+        <script type="text/javascript" src="///usr/share/webkit-1.0/pillow/javascripts/pillow.js"></script>
+        <script type="text/javascript" src="///usr/share/webkit-1.0/pillow/javascripts/sample_custom_dialog.js"></script>
+        <script type="text/javascript" src="///usr/share/webkit-1.0/pillow/javascripts/window_title.js"></script>
+	<link rel="stylesheet" href="../stylesheets/calendarstyle.css">
+
+<script>
+var State = {
+    appId: null,
+    width: Pillow.pointsToPixels(190),
+    height: Pillow.pointsToPixels(196),
+    alertIsShown: false,
+    windowTitle: null
+}
+</script>
+
+
+   <script src="../javascripts/prototype.js"></script>
+    <script src="../javascripts/calendarview.js"></script>
+    <script>
+      function setupCalendars() {
+        // Embedded Calendar
+        Calendar.setup(
+          {
+            dateField: 'embeddedDateField',
+            parentElement: 'embeddedCalendar'
+          }
+        )
+
+        // Popup Calendar
+        Calendar.setup(
+          {
+            dateField: 'popupDateField',
+            triggerElement: 'popupDateField'
+          }
+        )
+      }
+
+      Event.observe(window, 'load', function() { setupCalendars() })
+    </script>
+  </head>
+<body class="pillowDialogBody" onload="SampleCustomDialog.init();">
+	<div id="calendarContainer">
+          <div id="embeddedCalendar" style="margin-left: auto; margin-right: auto">
+          </div>
+          <!-- <div class="textOuter"><div id="embeddedDateField" class="dateField"></div></div> -->
+        </div>
+
+<div id="buttonsBar">
+	<div class="bottomButton black" onclick="nativeBridge.dismissMe();" >Close</div>
+</div>
+
+<!-- Don't remove the following code or the pillow won't show. Just ignore it... -->
+<div class="pillowDialogTitle2" style="display:none"><span id="title"></span></div><div style="display:none"> <div class="mainDiv" id="mainDiv"> <div class="pillowDialogMainText"> <span id="text"></span> </div> <div class="searchDiv" id="searchDiv" style="display:none"> <form name="myform"> <input id="searchEntry" class="graySearchText" type="text" onFocus="SampleCustomDialog.searchFieldFocused();" onBlur="SampleCustomDialog.searchFieldBlured();" onkeyup="SampleCustomDialog.searchFieldKeyUp();" size="20" value=""> </form> </div><p id="demo"></p><div class="pillowDialogButtonBar"> <div class="buttonCell"> <div class="pillowCustomButton2 pillowDialogBarButton2" id="buttonZero" onclick="SampleCustomDialog.buttonZeroSelect();"> <span id="buttonZeroText"></span> </div> </div> </div></div>
+  </body>
+</html>

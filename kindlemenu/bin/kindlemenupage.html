@@ -1,0 +1,269 @@
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+
+
+        <script type="text/javascript" src="///usr/share/webkit-1.0/pillow/strings/sample_custom_dialog_strings.js"></script>
+        <script type="text/javascript" src="///usr/share/webkit-1.0/pillow/javascripts/local_debug.js"></script>
+        <script type="text/javascript" src="///usr/share/webkit-1.0/pillow/javascripts/constants.js"></script>
+        <script type="text/javascript" src="///usr/share/webkit-1.0/pillow/javascripts/pillow.js"></script>
+        <script type="text/javascript" src="///usr/share/webkit-1.0/pillow/javascripts/sample_custom_dialog.js"></script>
+        <script type="text/javascript" src="///usr/share/webkit-1.0/pillow/javascripts/window_title.js"></script>
+	<link rel="stylesheet" type="text/css" href="stylesheets/portrait.css" media="screen" />
+	<link rel="stylesheet" type="text/css" href="stylesheets/common.css" media="screen" />
+
+<script>
+/* Used later for switching between portrait and landscape mode */
+
+      function changeCSS(cssFile, cssLinkIndex) {
+ 
+        var oldlink = document.getElementsByTagName("link").item(cssLinkIndex);
+ 
+        var newlink = document.createElement("link");
+        newlink.setAttribute("rel", "stylesheet");
+        newlink.setAttribute("type", "text/css");
+        newlink.setAttribute("href", cssFile);
+ 
+        document.getElementsByTagName("head").item(0).replaceChild(newlink, oldlink);
+      }
+
+var State = {
+    appId: null,
+    width: Pillow.pointsToPixels(255),
+    height: Pillow.pointsToPixels(318),
+    alertIsShown: false,
+    windowTitle: null
+}
+
+/* Loads landscape.css if the device is in landscape mode */
+var orientation = nativeBridge.getStringLipcProperty("com.lab126.winmgr", "orientation");
+if( orientation != "U" ){
+State = {
+    appId: null,
+    width: Pillow.pointsToPixels(345),
+    height: Pillow.pointsToPixels(228),
+    alertIsShown: false,
+    windowTitle: null
+}
+changeCSS('stylesheets/landscape.css', 0);
+}
+
+
+
+/* This function kills apps while switching between them. For now, you can only
+switch while using status-bar-enabled apps like explorer, so we are killing just it for
+the moment */
+function killallprocesses(){
+nativeBridge.setLipcProperty( "com.lab126.system", "sendEvent", "; sh -c 'killall explorer'");
+
+}
+/* Call this function each time you load an app that doesn't work properly in landscape mode */
+
+function portrait_only(){
+nativeBridge.setLipcProperty("com.lab126.winmgr", "orientationLock", "U");
+}
+
+// ### TRAYBAR FUNCTIONS ###
+function wifi()
+{
+nativeBridge.setLipcProperty("com.lab126.pillow", "displayChrome", "enable");
+var status = "ON";
+var enable = nativeBridge.getIntLipcProperty("com.lab126.cmd", "wirelessEnable");
+var invertedState = (enable ? 0 : 1);
+if (enable==1) {status="OFF"}
+nativeBridge.setIntLipcProperty("com.lab126.cmd", "wirelessEnable", invertedState);
+MESSAGE='{"titleBar":{"clientParams":{"secondary":"Wireless is now '+status+'","useDefaultPrimary":false}}}';
+nativeBridge.setLipcProperty("com.lab126.pillow", "configureChrome", MESSAGE);
+}
+
+function light(){
+nativeBridge.setLipcProperty( "com.lab126.system", "sendEvent", "; sh -c '/mnt/us/extensions/kindlemenu/bin/sh/FLtoggle.sh'");
+}
+
+function light_bars(){
+nativeBridge.setLipcProperty( "com.lab126.system", "sendEvent", "; sh -c 'DISPLAY=:0 /usr/bin/light.sh'");
+}
+
+function toggle_screensaver(){
+nativeBridge.setLipcProperty("com.lab126.pillow", "displayChrome", "enable");
+var status = "ON";
+var enable = nativeBridge.getIntLipcProperty("com.lab126.powerd", "preventScreenSaver");
+var invertedState = (enable ? 0 : 1);
+if (enable==1) {status="OFF"}
+nativeBridge.setIntLipcProperty("com.lab126.powerd", "preventScreenSaver", invertedState);
+MESSAGE='{"titleBar":{"clientParams":{"secondary":"Prevent screensaver is now '+status+'","useDefaultPrimary":false}}}';
+nativeBridge.setLipcProperty("com.lab126.pillow", "configureChrome", MESSAGE);
+}
+
+function battery_percent(){
+nativeBridge.setLipcProperty( "com.lab126.system", "sendEvent", "; sh -c 'DISPLAY=:0 /mnt/us/extensions/kindlemenu/bin/sh/batterylevel.sh'");
+}
+
+function calendar_launcher(){
+MESSAGE1='{"dismiss": true}'
+MESSAGE2='{"name": "../../../../mnt/us/extensions/kindlemenu/bin/html/calendar","clientParams": '+MESSAGE1+'}'
+nativeBridge.setLipcProperty( "com.lab126.pillow", "customDialog", MESSAGE2);
+}
+
+// ### APP LAUNCHERS FUNCTIONS ###
+
+// Take this launcher as reference:
+function midori(){
+portrait_only();
+killallprocesses(); // kills other active apps while switching to this one. Don't forget command!
+nativeBridge.dismissMe(); // closes Kindle Launcher before launching the app
+nativeBridge.setLipcProperty( "com.lab126.system", "sendEvent", "; sh -c 'DISPLAY=:0 /mnt/us/extensions/midori/runit.sh'");
+}
+
+function leafpad(){
+// We must be sure that this runs on portrait mode. Call this function each time you need this behaviour 
+portrait_only();
+killallprocesses();
+nativeBridge.dismissMe(); 
+nativeBridge.setLipcProperty( "com.lab126.system", "sendEvent", "; sh -c 'DISPLAY=:0 /mnt/us/extensions/leafpad/bin/leafpad.sh'");
+}
+
+function explorer(){
+killallprocesses();
+nativeBridge.dismissMe(); 
+nativeBridge.setLipcProperty( "com.lab126.system", "sendEvent", "; sh -c 'DISPLAY=:0 /mnt/us/extensions/explorer/bin/explorer.sh'");
+}
+
+function rgbpaint(){
+killallprocesses();
+nativeBridge.dismissMe(); 
+nativeBridge.setLipcProperty( "com.lab126.system", "sendEvent", "; sh -c 'DISPLAY=:0 /mnt/us/extensions/rgbpaint/usr/bin/rgbpaint.sh'");
+}
+
+
+function kterm(){
+killallprocesses();
+nativeBridge.dismissMe(); 
+nativeBridge.setLipcProperty( "com.lab126.system", "sendEvent", "; sh -c 'cd /mnt/us/extensions/kterm; DISPLAY=:0 /mnt/us/extensions/kterm/bin/kterm.sh'");
+}
+
+function galculator(){
+killallprocesses();
+nativeBridge.dismissMe(); 
+nativeBridge.setLipcProperty( "com.lab126.system", "sendEvent", "; sh -c 'DISPLAY=:0 /mnt/us/extensions/galculator/usr/bin/run.sh'");
+}
+
+function koreader(){
+killallprocesses();
+nativeBridge.dismissMe(); 
+nativeBridge.setLipcProperty( "com.lab126.system", "sendEvent", "; sh -c 'DISPLAY=:0 /mnt/us/extensions/kindlemenu/bin/sh/koreader_launcher.sh'");
+/* Koreader shuts down the chrome bar. For this reason, we must re-activate both the status bar shorcut
+and the battery percent display. That's what is the script for (and similar scripts apply to other apps too).
+Side effect: battery percent and shorcut will be (re-)enabled even if user didn't launch them before */
+}
+
+function whiteboard(){
+killallprocesses();
+nativeBridge.dismissMe(); 
+nativeBridge.setLipcProperty( "com.lab126.system", "sendEvent", "; sh -c 'DISPLAY=:0 /mnt/us/extensions/kindlemenu/bin/sh/whiteboard.sh'");
+}
+
+function imageviewer(){
+killallprocesses();
+nativeBridge.dismissMe(); 
+nativeBridge.setLipcProperty( "com.lab126.appmgrd", "start", "app://com.lab126.booklet.imageviewer");
+}
+
+function gargoyle(){
+portrait_only();
+killallprocesses();
+nativeBridge.dismissMe(); 
+nativeBridge.setLipcProperty( "com.lab126.system", "sendEvent", "; sh -c 'DISPLAY=:0 /mnt/us/extensions/gargoyle/gargoyle.sh'");
+}
+
+// ### BUTTONS FUNCTIONS ###
+
+function taskmanager(){
+nativeBridge.dismissMe(); 
+nativeBridge.setLipcProperty( "com.lab126.system", "sendEvent", "; sh -c 'DISPLAY=:0 /mnt/us/extensions/yad/usr/bin/process.sh'");
+}
+
+function moreapps(){
+nativeBridge.dismissMe(); 
+nativeBridge.setLipcProperty( "com.lab126.appmgrd", "start", "app://com.lab126.booklet.kindlet/mnt/us/documents/KindleLauncher-2.0.azw2");
+}
+
+
+
+</script>
+</head>
+
+
+<body class="pillowDialogBody" onload="SampleCustomDialog.init();">
+
+
+<div id="traybar">
+	<div class="trayicon" style="background-image:url('icons/wifi.png');" onclick="wifi()" ></div>
+	<div class="trayicon" style="background-image:url('icons/light.png');" onclick="light()" ></div>
+	<div class="trayicon" style="background-image:url('icons/light_bars.png');" onclick="light_bars()" ></div>
+	<div class="trayicon" style="background-image:url('icons/screensaver.png');" onclick="toggle_screensaver()" ></div>
+	<div class="trayicon" style="background-image:url('icons/battery.png');" onclick="battery_percent()" ></div>
+	<div class="trayicon" style="background-image:url('icons/calendar.png');" onclick="calendar_launcher()" ></div>
+</div>
+
+<div id="appContainer">
+<div class="appOuter" onclick="midori()" >
+	<div class="appIcon" style="background-image:url('icons/midori.jpg');" ></div>
+	<div class="appName">Midori</div>
+</div>
+<div class="appOuter" onclick="leafpad()" >
+	<div class="appIcon" style="background-image:url('icons/leafpad.jpg');" ></div>
+	<div class="appName">Leafpad</div>
+</div>
+<div class="appOuter" onclick="explorer()" >
+	<div class="appIcon" style="background-image:url('icons/explorer.jpg');"></div>
+	<div class="appName">File Explorer</div>
+</div>
+<div class="appOuter" onclick="rgbpaint()" >
+	<div class="appIcon" style="background-image:url('icons/rgbpaint.jpg');"></div>
+	<div class="appName">rgbPaint</div>
+</div>
+<div class="appOuter" onclick="kterm()" >
+	<div class="appIcon" style="background-image:url('icons/kterm.jpg');"></div>
+	<div class="appName">Kterm</div>
+</div>
+<div class="appOuter" onclick="galculator()" >
+	<div class="appIcon" style="background-image:url('icons/galculator.jpg');"></div>
+	<div class="appName">Galculator</div>
+</div>
+<div class="appOuter" onclick="koreader()" >
+	<div class="appIcon" style="background-image:url('icons/koreader.jpg');"></div>
+	<div class="appName">KOReader</div>
+</div>
+<div class="appOuter" onclick="whiteboard()" >
+	<div class="appIcon" style="background-image:url('icons/whiteboard.jpg');"></div>
+	<div class="appName">Whiteboard</div>
+</div>
+<div class="appOuter" onclick="imageviewer()" >
+	<div class="appIcon" style="background-image:url('icons/imageviewer.jpg');"></div>
+	<div class="appName">ImageViewer</div>
+</div>
+<div class="appOuter" onclick="gargoyle()" >
+	<div class="appIcon" style="background-image:url('icons/gargoyle.jpg');"></div>
+	<div class="appName">Gargoyle</div>
+</div>
+
+<!-- You can put here up to six buttons -->
+<div id="buttonsBar">
+	<div class="bottomButton gray" onclick="" >Menu</div>
+	<div class="bottomButton gray" onclick="" >>></div>
+	<div class="bottomButton gray" onclick="" ><<</div>
+	<div class="bottomButton black exitButton" onclick="nativeBridge.dismissMe();" >Exit</div>
+	<div class="bottomButton black" onclick="moreapps()" >KUAL</div>
+	<div class="bottomButton black" onclick="taskmanager();" >Task Manager</div>	
+</div>
+</div>
+
+
+
+<!-- Don't remove the following code or the pillow won't show. Just ignore it... -->
+<div class="pillowDialogTitle2" style="display:none"><span id="title"></span></div><div style="display:none"> <div class="mainDiv" id="mainDiv"> <div class="pillowDialogMainText"> <span id="text"></span> </div> <div class="searchDiv" id="searchDiv" style="display:none"> <form name="myform"> <input id="searchEntry" class="graySearchText" type="text" onFocus="SampleCustomDialog.searchFieldFocused();" onBlur="SampleCustomDialog.searchFieldBlured();" onkeyup="SampleCustomDialog.searchFieldKeyUp();" size="20" value=""> </form> </div><p id="demo"></p><div class="pillowDialogButtonBar"> <div class="buttonCell"> <div class="pillowCustomButton2 pillowDialogBarButton2" id="buttonZero" onclick="SampleCustomDialog.buttonZeroSelect();"> <span id="buttonZeroText"></span> </div> </div> </div></div>
+
+ 
+    </body>
+</html>

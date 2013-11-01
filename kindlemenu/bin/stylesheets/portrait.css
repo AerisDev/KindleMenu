@@ -1,0 +1,44 @@
+#appContainer{
+margin:0 auto;
+width:100%;
+height:170pt;
+}
+
+.appOuter{
+border: 1pt solid #2c2c2c;
+height:71pt;
+width: 57pt;
+background-color:#2c2c2c;
+display:block;
+margin: 3.42pt 0pt 0pt 3.42pt;
+float:left;
+display:block;
+-webkit-border-radius:3pt;
+-webkit-user-select:none;
+}
+
+.appOuter:hover{
+background-color:gray;
+border: 1pt solid gray;
+}
+
+.appIcon{
+background-color:white;
+height: 57pt;
+width: 57pt;
+background-size: 90.25% 90.25%;
+background-repeat:no-repeat;
+background-position:center;
+-webkit-border-radius:3pt;
+-webkit-user-select:none;
+}
+
+.appName{
+color:white;
+font-family: Futura;
+font-weight: 500;
+line-height:14pt;
+font-size:9pt;
+text-align:center;
+}
+
