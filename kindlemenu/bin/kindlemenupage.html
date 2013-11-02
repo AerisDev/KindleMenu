@@ -105,6 +105,12 @@ MESSAGE2='{"name": "../../../../mnt/us/extensions/kindlemenu/bin/html/calendar",
 nativeBridge.setLipcProperty( "com.lab126.pillow", "customDialog", MESSAGE2);
 }
 
+function info(){
+MESSAGE1='{"dismiss": true}'
+MESSAGE2='{"name": "../../../../mnt/us/extensions/kindlemenu/bin/html/sample","clientParams": '+MESSAGE1+'}'
+nativeBridge.setLipcProperty( "com.lab126.pillow", "customDialog", MESSAGE2);
+}
+
 // ### APP LAUNCHERS FUNCTIONS ###
 
 // Take this launcher as reference:
@@ -150,7 +156,9 @@ nativeBridge.setLipcProperty( "com.lab126.system", "sendEvent", "; sh -c 'DISPLA
 
 function koreader(){
 killallprocesses();
-nativeBridge.dismissMe(); 
+nativeBridge.dismissMe();
+nativeBridge.setLipcProperty("com.lab126.appmgrd", "start", "app://com.lab126.booklet.home");
+nativeBridge.setLipcProperty("com.lab126.pillow", "disableEnablePillow", "disable");
 nativeBridge.setLipcProperty( "com.lab126.system", "sendEvent", "; sh -c 'DISPLAY=:0 /mnt/us/extensions/kindlemenu/bin/sh/koreader_launcher.sh'");
 /* Koreader shuts down the chrome bar. For this reason, we must re-activate both the status bar shorcut
 and the battery percent display. That's what is the script for (and similar scripts apply to other apps too).
@@ -204,6 +212,7 @@ nativeBridge.setLipcProperty( "com.lab126.appmgrd", "start", "app://com.lab126.b
 	<div class="trayicon" style="background-image:url('icons/screensaver.png');" onclick="toggle_screensaver()" ></div>
 	<div class="trayicon" style="background-image:url('icons/battery.png');" onclick="battery_percent()" ></div>
 	<div class="trayicon" style="background-image:url('icons/calendar.png');" onclick="calendar_launcher()" ></div>
+	<div class="trayicon" style="background-image:url('icons/info.png');" onclick="info()" ></div>
 </div>
 
 <div id="appContainer">

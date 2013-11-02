@@ -1,0 +1,77 @@
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+
+
+        <script type="text/javascript" src="///usr/share/webkit-1.0/pillow/strings/sample_custom_dialog_strings.js"></script>
+        <script type="text/javascript" src="///usr/share/webkit-1.0/pillow/javascripts/local_debug.js"></script>
+        <script type="text/javascript" src="///usr/share/webkit-1.0/pillow/javascripts/constants.js"></script>
+        <script type="text/javascript" src="///usr/share/webkit-1.0/pillow/javascripts/pillow.js"></script>
+        <script type="text/javascript" src="///usr/share/webkit-1.0/pillow/javascripts/sample_custom_dialog.js"></script>
+        <script type="text/javascript" src="///usr/share/webkit-1.0/pillow/javascripts/window_title.js"></script>
+		<link rel="stylesheet" href="../stylesheets/info.css">
+
+
+<script>
+var State = {
+    appId: null,
+    width: Pillow.pointsToPixels(255),
+    height: Pillow.pointsToPixels(318),
+    alertIsShown: false,
+    windowTitle: null
+}
+
+/* If landscape mode... */
+var orientation = nativeBridge.getStringLipcProperty("com.lab126.winmgr", "orientation");
+if( orientation != "U" ){
+State = {
+    appId: null,
+    width: Pillow.pointsToPixels(345),
+    height: Pillow.pointsToPixels(258),
+    alertIsShown: false,
+    windowTitle: null
+}
+}
+</script>
+
+  </head>
+<body class="pillowDialogBody" onload="SampleCustomDialog.init();">
+
+<div class="scrollableText">
+<pre>
+<script>
+function yesNo(state){
+if (state==0) return "No(0)";
+if (state==1) return "Yes(1)";
+}
+
+document.writeln("********* 1- Device *********");
+document.writeln("1.1 DSN: "+nativeBridge.getStringLipcProperty( "com.lab126.system", "usid"));
+document.write("\n"+nativeBridge.getStringLipcProperty( "com.lab126.wifid", "711"));
+document.writeln("********* 6- Miscellaneous *********");
+document.writeln("Battery level: "+nativeBridge.getIntLipcProperty( "com.lab126.powerd", "battLevel")+"%");
+document.writeln("Prevent screensaver: "+yesNo(nativeBridge.getIntLipcProperty( "com.lab126.powerd", "preventScreenSaver")));
+document.writeln("Time zone: "+nativeBridge.getStringLipcProperty( "com.lab126.kaf", "timezoneId"));
+document.writeln("Auto update time: "+nativeBridge.getStringLipcProperty( "com.lab126.system", "isTimeAutoUpdateEnabled"));
+document.writeln("Number of items to be indexed: "+nativeBridge.getIntLipcProperty( "com.lab126.indexer", "numberOfItemsToBeIndexed"));
+document.writeln("Firmware update available: "+yesNo(nativeBridge.getIntLipcProperty( "com.lab126.ota", "isUpdateAvailable")));
+document.writeln("Sharing enabled: "+yesNo(nativeBridge.getIntLipcProperty( "com.lab126.sharing", "isSharingEnabled")));
+
+
+
+
+
+
+
+</script>
+</pre>
+</div>
+
+<div id="buttonsBar">
+	<div class="bottomButton black" onclick="nativeBridge.dismissMe();" >Close</div>
+</div>
+
+<!-- Don't remove the following code or the pillow won't show. Just ignore it... -->
+<div class="pillowDialogTitle2" style="display:none"><span id="title"></span></div><div style="display:none"> <div class="mainDiv" id="mainDiv"> <div class="pillowDialogMainText"> <span id="text"></span> </div> <div class="searchDiv" id="searchDiv" style="display:none"> <form name="myform"> <input id="searchEntry" class="graySearchText" type="text" onFocus="SampleCustomDialog.searchFieldFocused();" onBlur="SampleCustomDialog.searchFieldBlured();" onkeyup="SampleCustomDialog.searchFieldKeyUp();" size="20" value=""> </form> </div><p id="demo"></p><div class="pillowDialogButtonBar"> <div class="buttonCell"> <div class="pillowCustomButton2 pillowDialogBarButton2" id="buttonZero" onclick="SampleCustomDialog.buttonZeroSelect();"> <span id="buttonZeroText"></span> </div> </div> </div></div>
+  </body>
+</html>
