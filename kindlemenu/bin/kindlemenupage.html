@@ -27,6 +27,7 @@
         document.getElementsByTagName("head").item(0).replaceChild(newlink, oldlink);
       }
 
+/* Sets the dialog dimensions */
 var State = {
     appId: null,
     width: Pillow.pointsToPixels(255),
@@ -35,7 +36,7 @@ var State = {
     windowTitle: null
 }
 
-/* Loads landscape.css if the device is in landscape mode */
+/* Loads landscape.css if the device is in landscape mode, and change dialog ratio */
 var orientation = nativeBridge.getStringLipcProperty("com.lab126.winmgr", "orientation");
 if( orientation != "U" ){
 State = {
@@ -48,7 +49,10 @@ State = {
 changeCSS('stylesheets/landscape.css', 0);
 }
 
-
+/* Onload custom events */
+function custom_init(){
+nativeBridge.hideKb();
+}
 
 /* This function kills apps while switching between them. For now, you can only
 switch while using status-bar-enabled apps like explorer, so we are killing just it for
@@ -107,7 +111,7 @@ nativeBridge.setLipcProperty( "com.lab126.pillow", "customDialog", MESSAGE2);
 
 function info(){
 MESSAGE1='{"dismiss": true}'
-MESSAGE2='{"name": "../../../../mnt/us/extensions/kindlemenu/bin/html/sample","clientParams": '+MESSAGE1+'}'
+MESSAGE2='{"name": "../../../../mnt/us/extensions/kindlemenu/bin/html/info","clientParams": '+MESSAGE1+'}'
 nativeBridge.setLipcProperty( "com.lab126.pillow", "customDialog", MESSAGE2);
 }
 
@@ -115,48 +119,48 @@ nativeBridge.setLipcProperty( "com.lab126.pillow", "customDialog", MESSAGE2);
 
 // Take this launcher as reference:
 function midori(){
+nativeBridge.dismissMe(); // closes Kindle Launcher before launching the app
 portrait_only();
 killallprocesses(); // kills other active apps while switching to this one. Don't forget command!
-nativeBridge.dismissMe(); // closes Kindle Launcher before launching the app
 nativeBridge.setLipcProperty( "com.lab126.system", "sendEvent", "; sh -c 'DISPLAY=:0 /mnt/us/extensions/midori/runit.sh'");
 }
 
 function leafpad(){
+nativeBridge.dismissMe();
 // We must be sure that this runs on portrait mode. Call this function each time you need this behaviour 
 portrait_only();
 killallprocesses();
-nativeBridge.dismissMe(); 
 nativeBridge.setLipcProperty( "com.lab126.system", "sendEvent", "; sh -c 'DISPLAY=:0 /mnt/us/extensions/leafpad/bin/leafpad.sh'");
 }
 
 function explorer(){
+nativeBridge.dismissMe();
 killallprocesses();
-nativeBridge.dismissMe(); 
 nativeBridge.setLipcProperty( "com.lab126.system", "sendEvent", "; sh -c 'DISPLAY=:0 /mnt/us/extensions/explorer/bin/explorer.sh'");
 }
 
 function rgbpaint(){
+nativeBridge.dismissMe();
 killallprocesses();
-nativeBridge.dismissMe(); 
 nativeBridge.setLipcProperty( "com.lab126.system", "sendEvent", "; sh -c 'DISPLAY=:0 /mnt/us/extensions/rgbpaint/usr/bin/rgbpaint.sh'");
 }
 
 
 function kterm(){
+nativeBridge.dismissMe();
 killallprocesses();
-nativeBridge.dismissMe(); 
 nativeBridge.setLipcProperty( "com.lab126.system", "sendEvent", "; sh -c 'cd /mnt/us/extensions/kterm; DISPLAY=:0 /mnt/us/extensions/kterm/bin/kterm.sh'");
 }
 
 function galculator(){
+nativeBridge.dismissMe();
 killallprocesses();
-nativeBridge.dismissMe(); 
 nativeBridge.setLipcProperty( "com.lab126.system", "sendEvent", "; sh -c 'DISPLAY=:0 /mnt/us/extensions/galculator/usr/bin/run.sh'");
 }
 
 function koreader(){
-killallprocesses();
 nativeBridge.dismissMe();
+killallprocesses();
 nativeBridge.setLipcProperty("com.lab126.appmgrd", "start", "app://com.lab126.booklet.home");
 nativeBridge.setLipcProperty("com.lab126.pillow", "disableEnablePillow", "disable");
 nativeBridge.setLipcProperty( "com.lab126.system", "sendEvent", "; sh -c 'DISPLAY=:0 /mnt/us/extensions/kindlemenu/bin/sh/koreader_launcher.sh'");
@@ -166,21 +170,22 @@ Side effect: battery percent and shorcut will be (re-)enabled even if user didn'
 }
 
 function whiteboard(){
-killallprocesses();
 nativeBridge.dismissMe(); 
+portrait_only();
+killallprocesses();
 nativeBridge.setLipcProperty( "com.lab126.system", "sendEvent", "; sh -c 'DISPLAY=:0 /mnt/us/extensions/kindlemenu/bin/sh/whiteboard.sh'");
 }
 
-function imageviewer(){
+function kindlegallery(){
+nativeBridge.dismissMe();
 killallprocesses();
-nativeBridge.dismissMe(); 
-nativeBridge.setLipcProperty( "com.lab126.appmgrd", "start", "app://com.lab126.booklet.imageviewer");
+nativeBridge.setLipcProperty( "com.lab126.system", "sendEvent", "; sh -c 'DISPLAY=:0 /mnt/us/extensions/kindlegallery/bin/kindlegallery.sh'");
 }
 
 function gargoyle(){
+nativeBridge.dismissMe(); 
 portrait_only();
 killallprocesses();
-nativeBridge.dismissMe(); 
 nativeBridge.setLipcProperty( "com.lab126.system", "sendEvent", "; sh -c 'DISPLAY=:0 /mnt/us/extensions/gargoyle/gargoyle.sh'");
 }
 
@@ -202,7 +207,7 @@ nativeBridge.setLipcProperty( "com.lab126.appmgrd", "start", "app://com.lab126.b
 </head>
 
 
-<body class="pillowDialogBody" onload="SampleCustomDialog.init();">
+<body class="pillowDialogBody" onload="SampleCustomDialog.init(); custom_init();">
 
 
 <div id="traybar">
@@ -248,9 +253,9 @@ nativeBridge.setLipcProperty( "com.lab126.appmgrd", "start", "app://com.lab126.b
 	<div class="appIcon" style="background-image:url('icons/whiteboard.jpg');"></div>
 	<div class="appName">Whiteboard</div>
 </div>
-<div class="appOuter" onclick="imageviewer()" >
+<div class="appOuter" onclick="kindlegallery()" >
 	<div class="appIcon" style="background-image:url('icons/imageviewer.jpg');"></div>
-	<div class="appName">ImageViewer</div>
+	<div class="appName">KindleGallery</div>
 </div>
 <div class="appOuter" onclick="gargoyle()" >
 	<div class="appIcon" style="background-image:url('icons/gargoyle.jpg');"></div>

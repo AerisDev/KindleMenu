@@ -22,6 +22,7 @@ font-size:9.5pt;
 height:17pt;
 width:30%;
 line-height:15pt;
+box-shadow: 2pt 2pt 2pt #888888;
 }
 
 ::-webkit-scrollbar {

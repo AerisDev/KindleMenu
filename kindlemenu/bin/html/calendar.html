@@ -9,7 +9,7 @@
         <script type="text/javascript" src="///usr/share/webkit-1.0/pillow/javascripts/pillow.js"></script>
         <script type="text/javascript" src="///usr/share/webkit-1.0/pillow/javascripts/sample_custom_dialog.js"></script>
         <script type="text/javascript" src="///usr/share/webkit-1.0/pillow/javascripts/window_title.js"></script>
-	<link rel="stylesheet" href="../stylesheets/calendarstyle.css">
+	<link rel="stylesheet" href="../stylesheets/calendar.css">
 
 <script>
 var State = {
@@ -47,14 +47,16 @@ var State = {
     </script>
   </head>
 <body class="pillowDialogBody" onload="SampleCustomDialog.init();">
+
+
 	<div id="calendarContainer">
           <div id="embeddedCalendar" style="margin-left: auto; margin-right: auto">
           </div>
           <!-- <div class="textOuter"><div id="embeddedDateField" class="dateField"></div></div> -->
         </div>
 
-<div id="buttonsBar">
-	<div class="bottomButton black" onclick="nativeBridge.dismissMe();" >Close</div>
+<div>
+	<div class="bottomButton" onclick="nativeBridge.dismissMe();" >Close</div>
 </div>
 
 <!-- Don't remove the following code or the pillow won't show. Just ignore it... -->

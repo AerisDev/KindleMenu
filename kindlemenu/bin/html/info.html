@@ -53,7 +53,6 @@ document.writeln("Battery level: "+nativeBridge.getIntLipcProperty( "com.lab126.
 document.writeln("Prevent screensaver: "+yesNo(nativeBridge.getIntLipcProperty( "com.lab126.powerd", "preventScreenSaver")));
 document.writeln("Time zone: "+nativeBridge.getStringLipcProperty( "com.lab126.kaf", "timezoneId"));
 document.writeln("Auto update time: "+nativeBridge.getStringLipcProperty( "com.lab126.system", "isTimeAutoUpdateEnabled"));
-document.writeln("Number of items to be indexed: "+nativeBridge.getIntLipcProperty( "com.lab126.indexer", "numberOfItemsToBeIndexed"));
 document.writeln("Firmware update available: "+yesNo(nativeBridge.getIntLipcProperty( "com.lab126.ota", "isUpdateAvailable")));
 document.writeln("Sharing enabled: "+yesNo(nativeBridge.getIntLipcProperty( "com.lab126.sharing", "isSharingEnabled")));
 
@@ -67,8 +66,8 @@ document.writeln("Sharing enabled: "+yesNo(nativeBridge.getIntLipcProperty( "com
 </pre>
 </div>
 
-<div id="buttonsBar">
-	<div class="bottomButton black" onclick="nativeBridge.dismissMe();" >Close</div>
+<div >
+	<div class="bottomButton" onclick="nativeBridge.dismissMe();" >Close</div>
 </div>
 
 <!-- Don't remove the following code or the pillow won't show. Just ignore it... -->

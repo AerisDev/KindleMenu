@@ -8,6 +8,7 @@ display:block;
 -webkit-border-radius:3pt;
 -webkit-user-select:none;
 padding:2pt 3pt 2pt 3pt;
+box-shadow: 2pt 2pt 2pt #888888;
 }
 
 .trayicon{
@@ -48,6 +49,7 @@ margin-right:2.5%;
 margin-bottom:5pt;
 width:30%;
 line-height:15pt;
+box-shadow: 2pt 2pt 2pt #888888;
 }
 
 .black{
@@ -55,7 +57,7 @@ background-color:black;
 border: 1px solid black;
 }
 
-.black:hover{
+.black:active{
 background-color:#595959;
 border: 1px solid #595959;
 }
