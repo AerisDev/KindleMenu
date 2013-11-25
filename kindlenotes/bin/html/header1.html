@@ -1,0 +1,73 @@
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+	<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
+
+        <script type="text/javascript" src="///usr/share/webkit-1.0/pillow/strings/sample_custom_dialog_strings.js"></script>
+        <script type="text/javascript" src="///usr/share/webkit-1.0/pillow/javascripts/local_debug.js"></script>
+        <script type="text/javascript" src="///usr/share/webkit-1.0/pillow/javascripts/constants.js"></script>
+        <script type="text/javascript" src="///usr/share/webkit-1.0/pillow/javascripts/pillow.js"></script>
+        <script type="text/javascript" src="///usr/share/webkit-1.0/pillow/javascripts/sample_custom_dialog.js"></script>
+        <script type="text/javascript" src="///usr/share/webkit-1.0/pillow/javascripts/window_title.js"></script>
+        <script type="text/javascript" src="../js/hammer.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="../stylesheets/portrait.css?version=0.2" media="screen"  />
+	<link rel="stylesheet" type="text/css" href="../stylesheets/common.css?version=0.33" media="screen"  />
+
+
+<script>
+/* Used later for switching between portrait and landscape mode */
+
+      function changeCSS(cssFile, cssLinkIndex) {
+ 
+        var oldlink = document.getElementsByTagName("link").item(cssLinkIndex);
+ 
+        var newlink = document.createElement("link");
+        newlink.setAttribute("rel", "stylesheet");
+        newlink.setAttribute("type", "text/css");
+        newlink.setAttribute("href", cssFile);
+ 
+        document.getElementsByTagName("head").item(0).replaceChild(newlink, oldlink);
+      }
+
+/* Sets the dialog dimensions */
+var State = {
+    width: Pillow.pointsToPixels(255),
+    height: Pillow.pointsToPixels(318)
+}
+
+/* Loads landscape.css if the device is in landscape mode, and change dialog ratio */
+var orientation = nativeBridge.getStringLipcProperty("com.lab126.winmgr", "orientation");
+if( orientation != "U" ){
+	State = {
+ 	   width: Pillow.pointsToPixels(345),
+ 	   height: Pillow.pointsToPixels(258)
+	}
+	changeCSS('../stylesheets/landscape.css?version=0.2', 0);
+}
+
+function show_alert(MESSAGE){
+	document.getElementById("alert").style.display="block";
+	document.getElementById("alert").innerHTML=MESSAGE;
+
+}
+
+function change_file(selectednumber){
+	var returned=getCurrentPageNumber();
+	if(selectednumber!=returned){
+	nativeBridge.dismissMe();
+	MESSAGE="; sh -c '/mnt/us/extensions/kindlenotes/bin/kindlenotes.sh "+selectednumber+"'";
+	nativeBridge.setLipcProperty( "com.lab126.system", "sendEvent", MESSAGE);
+	}
+}
+
+/* Save text to note.txt, after parsing characters ", '*/
+function saveText(){
+	var current=getCurrentPageNumber();
+	var text=document.getElementById("Textarea").value.replace(new RegExp( "\\n", "g" ),"\001");;
+	var text1=text.replace(/'/g,"\002");
+	var text2=text1.replace(/"/g,"\003");
+	var text3=text2.replace(/\$/g,"\004");
+	var MESSAGE='; sh -c \'DISPLAY=:0 echo "'+text3+'" > /mnt/us/extensions/kindlenotes/bin/notes/note'+current+'.txt; /mnt/us/extensions/kindlenotes/bin/sh/parse_saved_note.sh '+current+'\'';
+nativeBridge.setLipcProperty( "com.lab126.system", "sendEvent", MESSAGE);
+}
+

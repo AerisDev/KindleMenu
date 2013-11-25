@@ -1,0 +1,94 @@
+body{
+overflow:hidden;
+}
+
+.mainContainer{
+margin-top:5pt;
+width:100%;
+}
+
+::-webkit-scrollbar {
+height:10pt;
+width: 10pt;
+}
+
+ 
+::-webkit-scrollbar-track {
+box-shadow: inset 0 0 4pt rgba(0,0,0,0.83); 
+border-radius: 8pt;
+
+}
+ 
+::-webkit-scrollbar-thumb {
+border-radius: 8pt;
+box-shadow: inset 0 0 4pt rgba(0,0,0,0.5);
+background-color:black;
+}
+
+::-webkit-scrollbar-thumb:active {
+background-color:#595959;
+}
+
+.button {
+float:left;
+margin:0 3pt 5pt 3pt;
+background-color:white;
+border:1px solid black;
+color:black;
+padding-top:3pt;
+text-align:center;
+font-size:9.5pt;
+height:17pt;
+width:30%;
+line-height:15pt;
+border-radius:3pt;
+box-shadow: 2pt 2pt 2pt #888888;
+}
+
+.button:active{
+background-color:black;
+color:white;
+}
+
+.buttonContainer{
+width:100%;
+height:24pt;
+margin-bottom:3pt;
+}
+
+
+.noteicon{
+background-size:100% 100%;
+background-image:url('../icons/notesicon.png');
+}
+
+.sideitem:active{
+background-color:gray;
+border-radius:3pt;
+opacity:0.5;
+}
+
+#alert{
+position:absolute;
+background-color:white;
+top:0;
+font-size:10pt;
+display:none;
+width:100%;
+text-align:center;
+padding:9pt 0pt;
+}
+
+.sideitem{
+float:left;
+width:25pt;
+height:25pt;
+background-size:90% 90%;
+background-position:center;
+background-repeat:no-repeat;
+text-align:center;
+line-height:22pt;
+font-size:10pt;
+color:#1d1d1d;
+text-shadow:1pt 1pt gray;
+}

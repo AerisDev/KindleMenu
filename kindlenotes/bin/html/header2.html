@@ -1,0 +1,72 @@
+
+var textarea_font_size=11;
+var textarea_max_font_size=40;
+var textarea_min_font_size=6;
+
+function custom_init(){
+document.getElementById('Textarea').focus();
+
+
+// TOUCH GESTURES
+    Hammer(document.body).on("swipeleft", function(event) {
+    if(textarea_font_size>textarea_min_font_size){
+    	textarea_font_size -= 1;
+	document.getElementById("Textarea").style.fontSize = textarea_font_size+"pt";}
+    });
+
+    Hammer(document.body).on("swiperight", function(event) {
+
+    if(textarea_font_size<textarea_max_font_size){
+	textarea_font_size += 1;
+	document.getElementById("Textarea").style.fontSize = textarea_font_size+"pt";}
+    });
+
+    Hammer(document.body).on("doubletap", function(event) {
+	textarea_font_size = 11;
+	document.getElementById("Textarea").style.fontSize = textarea_font_size+"pt";
+    });
+
+
+
+
+
+
+}
+
+function select_all(){
+	function SelectAll(id)
+	{
+	    document.getElementById(id).focus();
+	    document.getElementById(id).select();
+	}
+
+	SelectAll('Textarea');
+
+	// Display "Select all" message
+	var MESSAGE2="; sh -c '/mnt/us/extensions/kindlenotes/bin/sh/show_alert.sh \"All text has been selected\" 2 &'";
+	nativeBridge.setLipcProperty( "com.lab126.system", "sendEvent", MESSAGE2);
+}
+
+function tools(){
+nativeBridge.hideKb();
+var MESSAGE1='{"dismiss": true}';
+var MESSAGE2='{"name": "../../../../mnt/us/extensions/kindlenotes/bin/html/tools","clientParams": '+MESSAGE1+'}';
+nativeBridge.setLipcProperty( "com.lab126.pillow", "customDialog", MESSAGE2);
+}
+
+</script>
+
+</head>
+<body onload="SampleCustomDialog.init();custom_init();" onFocus="nativeBridge.showKb();">
+<div class="mainContainer"> 
+		        
+<div id="alert" onclick="this.style.display = 'none';"></div>
+
+
+	<div class="buttonContainer">
+		<div class="button" onclick="nativeBridge.hideKb();nativeBridge.dismissMe();" >Discard & Quit</div>
+		<div class="button" onclick="saveText();" >Save</div>
+		<div class="button" onclick="saveText();nativeBridge.hideKb();nativeBridge.dismissMe();" >Save & Quit</div>
+	</div>
+
+	<textarea id="Textarea">

@@ -1,0 +1,5 @@
+{
+	"items": [
+		{"name": "KindleNotes", "priority": 0, "action": "/mnt/us/extensions/kindlenotes/bin/kindlenotes.sh"}
+	]
+}

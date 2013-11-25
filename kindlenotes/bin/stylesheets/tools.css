@@ -1,0 +1,46 @@
+body{
+padding-top:5pt;
+
+}
+
+
+.bottomButtonContainer{
+position:absolute;
+width:100%;
+bottom:5pt;
+}
+
+.bottomButton {
+margin:5pt auto;
+background-color:black;
+color:#fff;
+padding-top:3pt;
+text-align:center;
+font-size:9.5pt;
+-webkit-border-radius:3pt;
+height:17pt;
+width:30%;
+line-height:15pt;
+box-shadow: 2pt 2pt 2pt #888888;
+}
+
+.button {
+margin:5pt auto;
+background-color:white;
+border:1px solid black;
+color:black;
+padding-top:3pt;
+text-align:center;
+font-size:9.5pt;
+-webkit-border-radius:3pt;
+height:17pt;
+width:85%;
+line-height:15pt;
+box-shadow: 2pt 2pt 2pt #888888;
+}
+
+.button:active{
+background-color:black;
+color:white;
+}
+

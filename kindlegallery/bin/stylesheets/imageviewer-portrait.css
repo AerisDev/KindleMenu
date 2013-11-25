@@ -1,0 +1,64 @@
+#imageContainer{
+margin:10pt auto 0pt auto;
+width:90%;
+height:270pt;
+overflow:scroll;
+}
+
+.imageOuter{
+border: 1pt solid black;
+height:57pt;
+width: 57pt;
+display:block;
+margin: 0pt 0pt 10pt 10pt;
+float:left;
+display:block;
+box-shadow: 2pt 2pt 2pt #888888;
+}
+
+.imageOuter:hover{
+box-shadow: 4pt 4pt 2pt #888888;
+}
+
+.imageIcon{
+position:relative;
+background-color:white;
+height: 57pt;
+width: 57pt;
+background-size: 100% 100%;
+background-repeat:no-repeat;
+background-position:center;
+}
+
+.imageName{
+padding-left:3pt;
+background-color:black;
+opacity: .7;
+vertical-align:bottom;
+position:absolute;
+bottom:0;
+width:55pt;
+color:white;
+font-family: Futura;
+font-weight: 500;
+line-height:14pt;
+font-size:7pt;
+text-align:center;
+white-space: nowrap;
+overflow: hidden;
+text-overflow: ellipsis;
+}
+
+.bottomButton {
+margin:13pt auto 0pt auto;
+background-color:black;
+color:#fff;
+padding-top:3pt;
+text-align:center;
+font-size:9.5pt;
+-webkit-border-radius:3pt;
+height:17pt;
+width:30%;
+line-height:15pt;
+box-shadow: 2pt 2pt 2pt #888888;
+}

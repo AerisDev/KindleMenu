@@ -1,0 +1,55 @@
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+
+
+        <script type="text/javascript" src="///usr/share/webkit-1.0/pillow/strings/sample_custom_dialog_strings.js"></script>
+        <script type="text/javascript" src="///usr/share/webkit-1.0/pillow/javascripts/local_debug.js"></script>
+        <script type="text/javascript" src="///usr/share/webkit-1.0/pillow/javascripts/constants.js"></script>
+        <script type="text/javascript" src="///usr/share/webkit-1.0/pillow/javascripts/pillow.js"></script>
+        <script type="text/javascript" src="///usr/share/webkit-1.0/pillow/javascripts/sample_custom_dialog.js"></script>
+        <script type="text/javascript" src="///usr/share/webkit-1.0/pillow/javascripts/window_title.js"></script>
+	<link rel="stylesheet" href="../stylesheets/imageviewer-portrait.css">
+	<link rel="stylesheet" href="../stylesheets/imageviewer-common.css">
+<script>
+/* Used later for switching between portrait and landscape mode */
+
+      function changeCSS(cssFile, cssLinkIndex) {
+ 
+        var oldlink = document.getElementsByTagName("link").item(cssLinkIndex);
+ 
+        var newlink = document.createElement("link");
+        newlink.setAttribute("rel", "stylesheet");
+        newlink.setAttribute("type", "text/css");
+        newlink.setAttribute("href", cssFile);
+ 
+        document.getElementsByTagName("head").item(0).replaceChild(newlink, oldlink);
+      }
+
+/* Sets the dialog dimensions */
+var State = {
+    width: Pillow.pointsToPixels(255),
+    height: Pillow.pointsToPixels(318)
+}
+
+/* Loads landscape.css if the device is in landscape mode, and change dialog ratio */
+var orientation = nativeBridge.getStringLipcProperty("com.lab126.winmgr", "orientation");
+if( orientation != "U" ){
+State = {
+    width: Pillow.pointsToPixels(345),
+    height: Pillow.pointsToPixels(258)
+}
+changeCSS('../stylesheets/imageviewer-landscape.css', 0);
+}
+
+
+function showImage(name){
+nativeBridge.hideMe(); 
+var command='"///mnt/us/images/'+name+'" image';
+nativeBridge.setLipcProperty( "com.lab126.system", "sendEvent", "; sh -c 'DISPLAY=:0 WebReaderViewer "+command+"; wait; /mnt/us/extensions/kindlegallery/bin/sh/show_gallery.sh'");
+}
+
+</script>
+</head>
+<body onload="SampleCustomDialog.init();">
+<div id="imageContainer">

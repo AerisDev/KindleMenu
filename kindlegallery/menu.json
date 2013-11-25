@@ -1,0 +1,5 @@
+{
+	"items": [
+		{"name": "KindleGallery", "priority":0, "action": "bin/kindlegallery.sh", "exitmenu":false}
+	]
+}

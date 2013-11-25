@@ -1,0 +1,75 @@
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+
+
+        <script type="text/javascript" src="///usr/share/webkit-1.0/pillow/strings/sample_custom_dialog_strings.js"></script>
+        <script type="text/javascript" src="///usr/share/webkit-1.0/pillow/javascripts/local_debug.js"></script>
+        <script type="text/javascript" src="///usr/share/webkit-1.0/pillow/javascripts/constants.js"></script>
+        <script type="text/javascript" src="///usr/share/webkit-1.0/pillow/javascripts/pillow.js"></script>
+        <script type="text/javascript" src="///usr/share/webkit-1.0/pillow/javascripts/sample_custom_dialog.js"></script>
+        <script type="text/javascript" src="///usr/share/webkit-1.0/pillow/javascripts/window_title.js"></script>
+	<link rel="stylesheet" href="../stylesheets/tools.css">
+
+<script>
+/* Sets the dialog dimensions */
+var State = {
+    appId: null,
+    width: Pillow.pointsToPixels(220),
+    height: Pillow.pointsToPixels(170),
+    alertIsShown: false,
+    windowTitle: null
+}
+
+/* Loads landscape.css if the device is in landscape mode, and change dialog ratio */
+var orientation = nativeBridge.getStringLipcProperty("com.lab126.winmgr", "orientation");
+if( orientation != "U" ){
+State = {
+    appId: null,
+    width: Pillow.pointsToPixels(345),
+    height: Pillow.pointsToPixels(228),
+    alertIsShown: false,
+    windowTitle: null
+}
+}
+
+
+// ### LAUNCHERS FUNCTIONS ###
+
+function edit_leafpad(){
+nativeBridge.setLipcProperty( "com.lab126.system", "sendEvent", "; sh -c 'DISPLAY=:0 /mnt/us/extensions/kindlenotes/bin/sh/edit_with_leafpad.sh'");
+nativeBridge.dismissMe();
+}
+
+function export_leafpad(){
+nativeBridge.setLipcProperty( "com.lab126.system", "sendEvent", "; sh -c '/mnt/us/extensions/kindlenotes/bin/sh/export_notes.sh /mnt/us/extensions/leafpad/notes/'");
+nativeBridge.dismissMe();
+}
+
+function export_leafpad_open(){
+nativeBridge.setLipcProperty( "com.lab126.system", "sendEvent", "; sh -c 'DISPLAY=:0 /mnt/us/extensions/kindlenotes/bin/sh/export_notes.sh /mnt/us/extensions/leafpad/notes/ leafpad'");
+nativeBridge.dismissMe();
+}
+
+function export_documents(){
+nativeBridge.setLipcProperty( "com.lab126.system", "sendEvent", "; sh -c '/mnt/us/extensions/kindlenotes/bin/sh/export_notes.sh /mnt/us/documents/'");
+nativeBridge.dismissMe();
+}
+</script>
+
+  </head>
+<body class="pillowDialogBody" onload="SampleCustomDialog.init();">
+	<div class="button" onclick="edit_leafpad();" >Close & EDIT note in Leafpad</div>
+	<div class="button" onclick="export_documents();" >EXPORT note to documents folder</div>
+	<div class="button" onclick="export_leafpad();" >EXPORT note to Leafpad folder</div>
+	<div class="button" onclick="export_leafpad_open();" >EXPORT into Leafpad folder and OPEN</div>
+
+	<div class="bottomButtonContainer">
+		<div class="bottomButton" onclick="nativeBridge.dismissMe();" >Close</div>
+	</div>
+
+
+<!-- Don't remove the following code or the pillow won't show. Just ignore it... -->
+<div class="pillowDialogTitle2" style="display:none"><span id="title"></span></div><div style="display:none"> <div class="mainDiv" id="mainDiv"> <div class="pillowDialogMainText"> <span id="text"></span> </div> <div class="searchDiv" id="searchDiv" style="display:none"> <form name="myform"> <input id="searchEntry" class="graySearchText" type="text" onFocus="SampleCustomDialog.searchFieldFocused();" onBlur="SampleCustomDialog.searchFieldBlured();" onkeyup="SampleCustomDialog.searchFieldKeyUp();" size="20" value=""> </form> </div><p id="demo"></p><div class="pillowDialogButtonBar"> <div class="buttonCell"> <div class="pillowCustomButton2 pillowDialogBarButton2" id="buttonZero" onclick="SampleCustomDialog.buttonZeroSelect();"> <span id="buttonZeroText"></span> </div> </div> </div></div>
+  </body>
+</html>

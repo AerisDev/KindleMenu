@@ -1,0 +1,19 @@
+#Textarea{
+font-size:11pt;
+width:278pt;
+height:100pt;
+margin-left:3pt;
+border: 1pt solid gray;
+padding: 2pt;
+float:left;
+user-select: auto;
+cursor: text;
+}
+
+.sidebar{
+height:100pt;
+width:50pt;
+margin:0pt 0 0 5pt;
+float:left;
+}
+
