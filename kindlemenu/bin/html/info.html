@@ -14,28 +14,22 @@
 
 <script>
 var State = {
-    appId: null,
     width: Pillow.pointsToPixels(255),
-    height: Pillow.pointsToPixels(318),
-    alertIsShown: false,
-    windowTitle: null
+    height: Pillow.pointsToPixels(318)
 }
 
 /* If landscape mode... */
 var orientation = nativeBridge.getStringLipcProperty("com.lab126.winmgr", "orientation");
 if( orientation != "U" ){
-State = {
-    appId: null,
-    width: Pillow.pointsToPixels(345),
-    height: Pillow.pointsToPixels(258),
-    alertIsShown: false,
-    windowTitle: null
-}
+	State = {
+	    width: Pillow.pointsToPixels(345),
+	    height: Pillow.pointsToPixels(258)
+	}
 }
 </script>
 
   </head>
-<body class="pillowDialogBody" onload="SampleCustomDialog.init();">
+<body onload="SampleCustomDialog.init();">
 
 <div class="scrollableText">
 <pre>
@@ -66,11 +60,12 @@ document.writeln("Sharing enabled: "+yesNo(nativeBridge.getIntLipcProperty( "com
 </pre>
 </div>
 
-<div >
 	<div class="bottomButton" onclick="nativeBridge.dismissMe();" >Close</div>
-</div>
+
 
 <!-- Don't remove the following code or the pillow won't show. Just ignore it... -->
-<div class="pillowDialogTitle2" style="display:none"><span id="title"></span></div><div style="display:none"> <div class="mainDiv" id="mainDiv"> <div class="pillowDialogMainText"> <span id="text"></span> </div> <div class="searchDiv" id="searchDiv" style="display:none"> <form name="myform"> <input id="searchEntry" class="graySearchText" type="text" onFocus="SampleCustomDialog.searchFieldFocused();" onBlur="SampleCustomDialog.searchFieldBlured();" onkeyup="SampleCustomDialog.searchFieldKeyUp();" size="20" value=""> </form> </div><p id="demo"></p><div class="pillowDialogButtonBar"> <div class="buttonCell"> <div class="pillowCustomButton2 pillowDialogBarButton2" id="buttonZero" onclick="SampleCustomDialog.buttonZeroSelect();"> <span id="buttonZeroText"></span> </div> </div> </div></div>
+<div style="display:none"><div id="buttonZeroText" /><div id="searchEntry" /><div id="title"></div><div id="text" /></div>
+
+
   </body>
 </html>

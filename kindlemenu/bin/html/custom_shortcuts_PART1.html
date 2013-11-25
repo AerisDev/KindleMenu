@@ -1,0 +1,32 @@
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+
+
+        <script type="text/javascript" src="///usr/share/webkit-1.0/pillow/strings/sample_custom_dialog_strings.js"></script>
+        <script type="text/javascript" src="///usr/share/webkit-1.0/pillow/javascripts/local_debug.js"></script>
+        <script type="text/javascript" src="///usr/share/webkit-1.0/pillow/javascripts/constants.js"></script>
+        <script type="text/javascript" src="///usr/share/webkit-1.0/pillow/javascripts/pillow.js"></script>
+        <script type="text/javascript" src="///usr/share/webkit-1.0/pillow/javascripts/sample_custom_dialog.js"></script>
+        <script type="text/javascript" src="///usr/share/webkit-1.0/pillow/javascripts/window_title.js"></script>
+	<link rel="stylesheet" href="../stylesheets/custom_shortcuts.css">
+
+<script>
+/* Sets the dialog dimensions */
+var State = {
+    width: Pillow.pointsToPixels(200),
+    height: Pillow.pointsToPixels(200)
+}
+
+
+// ### LAUNCHERS FUNCTIONS ###
+
+function add_shorcuts(){
+nativeBridge.setLipcProperty( "com.lab126.system", "sendEvent", "; sh -c 'cd /mnt/us/extensions/kindlemenu/; DISPLAY=:0 /mnt/us/extensions/leafpad/bin/leafpad /mnt/us/extensions/kindlemenu/custom_shortcuts.txt'");
+nativeBridge.dismissMe();
+}
+</script>
+
+  </head>
+<body onload="SampleCustomDialog.init();">
+<div id="link_container" >

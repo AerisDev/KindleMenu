@@ -12,6 +12,11 @@ line-height:15pt;
 box-shadow: 2pt 2pt 2pt #888888;
 }
 
+.bottomButton:active {
+background-color:#595959;
+border: 1px solid #595959;
+}
+
 div.calendar
 {
   font-size: smaller;

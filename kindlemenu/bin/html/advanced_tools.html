@@ -1,0 +1,74 @@
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+
+
+        <script type="text/javascript" src="///usr/share/webkit-1.0/pillow/strings/sample_custom_dialog_strings.js"></script>
+        <script type="text/javascript" src="///usr/share/webkit-1.0/pillow/javascripts/local_debug.js"></script>
+        <script type="text/javascript" src="///usr/share/webkit-1.0/pillow/javascripts/constants.js"></script>
+        <script type="text/javascript" src="///usr/share/webkit-1.0/pillow/javascripts/pillow.js"></script>
+        <script type="text/javascript" src="///usr/share/webkit-1.0/pillow/javascripts/sample_custom_dialog.js"></script>
+        <script type="text/javascript" src="///usr/share/webkit-1.0/pillow/javascripts/window_title.js"></script>
+	<link rel="stylesheet" href="../stylesheets/advanced_tools.css">
+
+<script>
+/* Sets the dialog dimensions */
+var State = {
+    width: Pillow.pointsToPixels(200),
+    height: Pillow.pointsToPixels(170)
+}
+
+
+
+// ### LAUNCHERS FUNCTIONS ###
+
+function usbnet_status(){
+nativeBridge.setLipcProperty( "com.lab126.system", "sendEvent", "; sh -c 'DISPLAY=:0 cd /mnt/us/extensions/usbnet/ ; /mnt/us/extensions/kindlemenu/bin/sh/usbnet.sh usbnet_status'");
+}
+
+function usbnet_toggle(){
+nativeBridge.setLipcProperty( "com.lab126.system", "sendEvent", "; sh -c 'DISPLAY=:0 /mnt/us/extensions/kindlemenu/bin/sh/USBNet_toggle.sh'");
+}
+
+function launch_KUAL(){
+nativeBridge.setLipcProperty( "com.lab126.appmgrd", "start", "app://com.lab126.booklet.kindlet/mnt/us/documents/KindleLauncher-2.0.azw2");
+}
+
+function launch_CM(){
+nativeBridge.dismissMe();
+nativeBridge.setLipcProperty( "com.lab126.appmgrd", "start", "app://com.lab126.booklet.kindlet/mnt/us/extensions/azw/bin/CollectionsManager.azw2");
+}
+
+function launch_jbpatch(){
+nativeBridge.dismissMe();
+nativeBridge.setLipcProperty( "com.lab126.appmgrd", "start", "app://com.lab126.booklet.kindlet/mnt/us/extensions/azw/bin/jbpatch.azw2");
+}
+
+function dismiss_all(){
+	var MESSAGE='{"pillowId": "../../../../mnt/us/extensions/kindlemenu/bin/kindlemenupage","function":"nativeBridge.dismissMe();"}';
+	nativeBridge.setLipcProperty( "com.lab126.pillow", "interrogatePillow", MESSAGE);
+nativeBridge.dismissMe();
+}
+</script>
+
+  </head>
+<body onload="SampleCustomDialog.init();">
+
+	<div class="button" onclick="usbnet_toggle()" >Toggle USBNetwork</div>
+	<div class="button" onclick="usbnet_status()" >USBNetwork STATUS</div>
+	<div class="button" onclick="launch_KUAL();dismiss_all();" >Launch KUAL</div>
+	<div class="button" onclick="launch_CM();dismiss_all();" >Launch Collection Manager</div>
+	<div class="button" onclick="launch_jbpatch();dismiss_all();" >Launch JBPatch</div>
+
+
+	<div class="bottomButtonContainer">
+		<div class="bottomButton" onclick="nativeBridge.dismissMe();" >Close</div>
+	</div>
+
+
+<!-- Don't remove the following code or the pillow won't show. Just ignore it... -->
+<div style="display:none"><div id="buttonZeroText" /><div id="searchEntry" /><div id="title"></div><div id="text" /></div>
+
+
+  </body>
+</html>

@@ -29,29 +29,41 @@
 
 /* Sets the dialog dimensions */
 var State = {
-    appId: null,
     width: Pillow.pointsToPixels(255),
-    height: Pillow.pointsToPixels(318),
-    alertIsShown: false,
-    windowTitle: null
+    height: Pillow.pointsToPixels(318)
 }
 
 /* Loads landscape.css if the device is in landscape mode, and change dialog ratio */
 var orientation = nativeBridge.getStringLipcProperty("com.lab126.winmgr", "orientation");
 if( orientation != "U" ){
 State = {
-    appId: null,
     width: Pillow.pointsToPixels(345),
-    height: Pillow.pointsToPixels(228),
-    alertIsShown: false,
-    windowTitle: null
+    height: Pillow.pointsToPixels(228)
 }
 changeCSS('stylesheets/landscape.css', 0);
 }
 
 /* Onload custom events */
 function custom_init(){
-nativeBridge.hideKb();
+nativeBridge.hideKb(); // to fix oldest firmware display keyboard bug on Kindle Touch
+
+  var swiped = false;
+
+  document.body.addEventListener("mousedown", function () {
+    swiped = true;
+  });
+  document.body.addEventListener("mouseup", function () {
+    swiped = false;
+  });
+
+  document.body.addEventListener("mouseout", function () {
+    if (swiped) {
+      swiped = false;
+      nativeBridge.dismissMe();
+    }
+  });
+
+
 }
 
 /* This function kills apps while switching between them. For now, you can only
@@ -70,14 +82,13 @@ nativeBridge.setLipcProperty("com.lab126.winmgr", "orientationLock", "U");
 // ### TRAYBAR FUNCTIONS ###
 function wifi()
 {
-nativeBridge.setLipcProperty("com.lab126.pillow", "displayChrome", "enable");
-var status = "ON";
+var status = '"Wireless enabled."';
 var enable = nativeBridge.getIntLipcProperty("com.lab126.cmd", "wirelessEnable");
 var invertedState = (enable ? 0 : 1);
-if (enable==1) {status="OFF"}
+if (enable==1) {status='"Wireless disabled."'}
 nativeBridge.setIntLipcProperty("com.lab126.cmd", "wirelessEnable", invertedState);
-MESSAGE='{"titleBar":{"clientParams":{"secondary":"Wireless is now '+status+'","useDefaultPrimary":false}}}';
-nativeBridge.setLipcProperty("com.lab126.pillow", "configureChrome", MESSAGE);
+nativeBridge.setLipcProperty( "com.lab126.system", "sendEvent",  "; sh -c 'killall show_alert.sh & DISPLAY=:0 /mnt/us/extensions/kindlemenu/bin/sh/show_alert.sh "+status+" 3 &'");
+
 }
 
 function light(){
@@ -89,14 +100,12 @@ nativeBridge.setLipcProperty( "com.lab126.system", "sendEvent", "; sh -c 'DISPLA
 }
 
 function toggle_screensaver(){
-nativeBridge.setLipcProperty("com.lab126.pillow", "displayChrome", "enable");
-var status = "ON";
+var status = '"Prevent screensaver enabled."';
 var enable = nativeBridge.getIntLipcProperty("com.lab126.powerd", "preventScreenSaver");
 var invertedState = (enable ? 0 : 1);
-if (enable==1) {status="OFF"}
+if (enable==1) {status='"Prevent screensaver disabled."'}
 nativeBridge.setIntLipcProperty("com.lab126.powerd", "preventScreenSaver", invertedState);
-MESSAGE='{"titleBar":{"clientParams":{"secondary":"Prevent screensaver is now '+status+'","useDefaultPrimary":false}}}';
-nativeBridge.setLipcProperty("com.lab126.pillow", "configureChrome", MESSAGE);
+nativeBridge.setLipcProperty( "com.lab126.system", "sendEvent",  "; sh -c 'killall show_alert.sh & DISPLAY=:0 /mnt/us/extensions/kindlemenu/bin/sh/show_alert.sh "+status+" 3 &'");
 }
 
 function battery_percent(){
@@ -104,16 +113,28 @@ nativeBridge.setLipcProperty( "com.lab126.system", "sendEvent", "; sh -c 'DISPLA
 }
 
 function calendar_launcher(){
-MESSAGE1='{"dismiss": true}'
-MESSAGE2='{"name": "../../../../mnt/us/extensions/kindlemenu/bin/html/calendar","clientParams": '+MESSAGE1+'}'
+var MESSAGE1='{"dismiss": true}';
+var MESSAGE2='{"name": "../../../../mnt/us/extensions/kindlemenu/bin/html/calendar","clientParams": '+MESSAGE1+'}';
 nativeBridge.setLipcProperty( "com.lab126.pillow", "customDialog", MESSAGE2);
 }
 
 function info(){
-MESSAGE1='{"dismiss": true}'
-MESSAGE2='{"name": "../../../../mnt/us/extensions/kindlemenu/bin/html/info","clientParams": '+MESSAGE1+'}'
+var MESSAGE1='{"dismiss": true}';
+var MESSAGE2='{"name": "../../../../mnt/us/extensions/kindlemenu/bin/html/info","clientParams": '+MESSAGE1+'}';
 nativeBridge.setLipcProperty( "com.lab126.pillow", "customDialog", MESSAGE2);
 }
+
+function advanced_tools(){
+var MESSAGE1='{"dismiss": true}';
+var MESSAGE2='{"name": "../../../../mnt/us/extensions/kindlemenu/bin/html/advanced_tools","clientParams": '+MESSAGE1+'}';
+nativeBridge.setLipcProperty( "com.lab126.pillow", "customDialog", MESSAGE2);
+}
+
+function custom_shortcuts(){
+nativeBridge.dismissMe();
+nativeBridge.setLipcProperty( "com.lab126.system", "sendEvent", "; sh -c 'DISPLAY=:0 /mnt/us/extensions/kindlemenu/bin/sh/custom_shorcuts.sh'");
+}
+
 
 // ### APP LAUNCHERS FUNCTIONS ###
 
@@ -196,32 +217,37 @@ nativeBridge.dismissMe();
 nativeBridge.setLipcProperty( "com.lab126.system", "sendEvent", "; sh -c 'DISPLAY=:0 /mnt/us/extensions/yad/usr/bin/process.sh'");
 }
 
-function moreapps(){
+function extensions(){
 nativeBridge.dismissMe(); 
-nativeBridge.setLipcProperty( "com.lab126.appmgrd", "start", "app://com.lab126.booklet.kindlet/mnt/us/documents/KindleLauncher-2.0.azw2");
+nativeBridge.setLipcProperty( "com.lab126.system", "sendEvent", "; sh -c 'DISPLAY=:0 /mnt/us/extensions/kindlemenu/bin/sh/extensions.sh'");
 }
 
-
+function launch_notes(){
+nativeBridge.dismissMe(); 
+nativeBridge.setLipcProperty( "com.lab126.system", "sendEvent", "; sh -c 'DISPLAY=:0 /mnt/us/extensions/kindlenotes/bin/kindlenotes.sh'");
+}
 
 </script>
 </head>
 
 
-<body class="pillowDialogBody" onload="SampleCustomDialog.init(); custom_init();">
+<body onload="SampleCustomDialog.init(); custom_init();">
 
 
 <div id="traybar">
 	<div class="trayicon" style="background-image:url('icons/wifi.png');" onclick="wifi()" ></div>
-	<div class="trayicon" style="background-image:url('icons/light.png');" onclick="light()" ></div>
-	<div class="trayicon" style="background-image:url('icons/light_bars.png');" onclick="light_bars()" ></div>
+	<div class="trayicon" id="light_toogle" style="background-image:url('icons/light.png');" onclick="light()" ></div>
+	<div class="trayicon" id="light_bars"style="background-image:url('icons/light_bars.png');" onclick="light_bars()" ></div>
 	<div class="trayicon" style="background-image:url('icons/screensaver.png');" onclick="toggle_screensaver()" ></div>
 	<div class="trayicon" style="background-image:url('icons/battery.png');" onclick="battery_percent()" ></div>
 	<div class="trayicon" style="background-image:url('icons/calendar.png');" onclick="calendar_launcher()" ></div>
 	<div class="trayicon" style="background-image:url('icons/info.png');" onclick="info()" ></div>
+	<div class="trayicon" style="background-image:url('icons/tools.png');" onclick="advanced_tools()" ></div>
+	<div class="trayicon" style="background-image:url('icons/shorcuts.png');" onclick="custom_shortcuts()" ></div>
 </div>
 
 <div id="appContainer">
-<div class="appOuter" onclick="midori()" >
+<div class="appOuter" onclick="midori()" id="midori">
 	<div class="appIcon" style="background-image:url('icons/midori.jpg');" ></div>
 	<div class="appName">Midori</div>
 </div>
@@ -245,7 +271,7 @@ nativeBridge.setLipcProperty( "com.lab126.appmgrd", "start", "app://com.lab126.b
 	<div class="appIcon" style="background-image:url('icons/galculator.jpg');"></div>
 	<div class="appName">Galculator</div>
 </div>
-<div class="appOuter" onclick="koreader()" >
+<div class="appOuter" onclick="koreader()" id="koreader" >
 	<div class="appIcon" style="background-image:url('icons/koreader.jpg');"></div>
 	<div class="appName">KOReader</div>
 </div>
@@ -262,21 +288,26 @@ nativeBridge.setLipcProperty( "com.lab126.appmgrd", "start", "app://com.lab126.b
 	<div class="appName">Gargoyle</div>
 </div>
 
+
+<!-- Area for notifications -->
+<div id="alert" onclick="this.style.display = 'none';"></div>
+
 <!-- You can put here up to six buttons -->
 <div id="buttonsBar">
-	<div class="bottomButton gray" onclick="" >Menu</div>
+	<div class="bottomButton black" onclick="launch_notes()" >Notes</div>
 	<div class="bottomButton gray" onclick="" >>></div>
 	<div class="bottomButton gray" onclick="" ><<</div>
 	<div class="bottomButton black exitButton" onclick="nativeBridge.dismissMe();" >Exit</div>
-	<div class="bottomButton black" onclick="moreapps()" >KUAL</div>
+	<div class="bottomButton black" onclick="extensions()" >More apps</div>
 	<div class="bottomButton black" onclick="taskmanager();" >Task Manager</div>	
 </div>
 </div>
 
 
 
+
 <!-- Don't remove the following code or the pillow won't show. Just ignore it... -->
-<div class="pillowDialogTitle2" style="display:none"><span id="title"></span></div><div style="display:none"> <div class="mainDiv" id="mainDiv"> <div class="pillowDialogMainText"> <span id="text"></span> </div> <div class="searchDiv" id="searchDiv" style="display:none"> <form name="myform"> <input id="searchEntry" class="graySearchText" type="text" onFocus="SampleCustomDialog.searchFieldFocused();" onBlur="SampleCustomDialog.searchFieldBlured();" onkeyup="SampleCustomDialog.searchFieldKeyUp();" size="20" value=""> </form> </div><p id="demo"></p><div class="pillowDialogButtonBar"> <div class="buttonCell"> <div class="pillowCustomButton2 pillowDialogBarButton2" id="buttonZero" onclick="SampleCustomDialog.buttonZeroSelect();"> <span id="buttonZeroText"></span> </div> </div> </div></div>
+<div style="display:none"><div id="buttonZeroText" /><div id="searchEntry" /><div id="title"></div><div id="text" /></div>
 
  
     </body>

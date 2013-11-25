@@ -1,0 +1,123 @@
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+
+
+        <script type="text/javascript" src="///usr/share/webkit-1.0/pillow/strings/sample_custom_dialog_strings.js"></script>
+        <script type="text/javascript" src="///usr/share/webkit-1.0/pillow/javascripts/local_debug.js"></script>
+        <script type="text/javascript" src="///usr/share/webkit-1.0/pillow/javascripts/constants.js"></script>
+        <script type="text/javascript" src="///usr/share/webkit-1.0/pillow/javascripts/pillow.js"></script>
+        <script type="text/javascript" src="///usr/share/webkit-1.0/pillow/javascripts/sample_custom_dialog.js"></script>
+        <script type="text/javascript" src="///usr/share/webkit-1.0/pillow/javascripts/window_title.js"></script>
+	<link rel="stylesheet" href="../stylesheets/extensions_portrait.css">
+	<link rel="stylesheet" href="../stylesheets/extensions_common.css">
+
+<script>
+/* Used later for switching between portrait and landscape mode */
+
+      function changeCSS(cssFile, cssLinkIndex) {
+ 
+        var oldlink = document.getElementsByTagName("link").item(cssLinkIndex);
+ 
+        var newlink = document.createElement("link");
+        newlink.setAttribute("rel", "stylesheet");
+        newlink.setAttribute("type", "text/css");
+        newlink.setAttribute("href", cssFile);
+ 
+        document.getElementsByTagName("head").item(0).replaceChild(newlink, oldlink);
+      }
+
+/* Sets the dialog dimensions */
+var State = {
+    width: Pillow.pointsToPixels(255),
+    height: Pillow.pointsToPixels(318)
+}
+
+/* Loads landscape.css if the device is in landscape mode, and change dialog ratio */
+var orientation = nativeBridge.getStringLipcProperty("com.lab126.winmgr", "orientation");
+if( orientation != "U" ){
+State = {
+    width: Pillow.pointsToPixels(345),
+    height: Pillow.pointsToPixels(228)
+}
+changeCSS('../stylesheets/extensions_landscape.css', 0);
+}
+
+
+function generator(i,action,params){
+window['dynamicFunction'+i]=function(){
+var num=parseInt(i)+1 // convert string index to number
+eval("var workpath=path"+(num));
+var undefined;
+if (params === undefined){ params="";}
+nativeBridge.setLipcProperty( "com.lab126.system", "sendEvent", "; sh -c '"+"cd "+workpath+" ; DISPLAY=:0 "+action+" "+params+"'");
+};	
+}
+
+var globalChildCounter=1;
+
+function generatorChild(i,action,params){
+window['dynamicFunctionChild'+globalChildCounter]=function(){
+var num=parseInt(i)+1 // convert string index to number
+eval("var workpath=path"+(num));
+var undefined;
+if (params === undefined){ params="";}
+nativeBridge.setLipcProperty( "com.lab126.system", "sendEvent", "; sh -c '"+"cd "+workpath+" ; DISPLAY=:0 "+action+" "+params+"'");
+};	
+}
+
+var lastShown=0;
+
+
+function showChildren(i){
+	// hide previous parent's children
+	if (lastShown != 0 && lastShown != i)document.getElementById('childContainer'+lastShown).style.display='none';
+	// toggle current one status
+	var currentParent=document.getElementById('childContainer'+i);
+	if (currentParent.style.display == "none") currentParent.style.display="block"; 
+	else currentParent.style.display = "none";
+	lastShown=i;
+}
+
+
+function buildPage(){
+	var container=document.getElementById('container');
+
+
+
+		for (var i in myJSONObject.items) {
+			action=myJSONObject.items[i].items[0].action;
+			params=myJSONObject.items[i].items[0].params;
+			var undefined;
+			// If the menu entry has no children
+			if (action !== undefined){
+				generator(i,action,params);
+				container.innerHTML=container.innerHTML+"<div class='button' onclick='nativeBridge.dismissMe();dynamicFunction"+i+"()' >"+myJSONObject.items[i].items[0].name+"</div>";
+			}
+
+			// If the menu entry has children
+			else{
+				container.innerHTML=container.innerHTML+"<div class='button' onclick='showChildren("+i+")' >"+myJSONObject.items[i].items[0].name+" &#10025</div>";
+				container.innerHTML=container.innerHTML+"<div style='display:none' id='childContainer"+i+"' ></div>";
+
+				for (var j in myJSONObject.items[i].items[0].items) {
+				action=myJSONObject.items[i].items[0].items[j].action;
+				params=myJSONObject.items[i].items[0].items[j].params;
+				generatorChild(i,action,params);
+				var childContainer=document.getElementById('childContainer'+i);
+				childContainer.innerHTML=childContainer.innerHTML+"<div class='buttonGray' onclick='nativeBridge.dismissMe();dynamicFunctionChild"+globalChildCounter+"()' >"+myJSONObject.items[i].items[0].items[j].name+"</div>";
+		globalChildCounter++;
+				}
+
+				
+			}
+
+		}
+
+
+
+
+
+}
+
+

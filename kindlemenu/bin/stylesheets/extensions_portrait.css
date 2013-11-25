@@ -1,0 +1,43 @@
+#container{
+margin:0 auto;
+width:94%;
+overflow:auto;
+height:279pt;
+}
+
+.button {
+margin:5pt auto;
+background-color:white;
+border:1px solid black;
+color:black;
+padding:0pt 2pt;
+text-align:center;
+font-size:9.5pt;
+-webkit-border-radius:3pt;
+height:22pt;
+width:85%;
+line-height:22pt;
+box-shadow: 2pt 2pt 2pt #888888;
+white-space: nowrap;
+overflow: hidden;
+text-overflow: ellipsis;
+}
+
+.buttonGray {
+margin:5pt auto;
+background-color:#d7d7d7;
+border:1px solid black;
+color:black;
+padding:0pt 2pt;
+text-align:center;
+font-size:9.5pt;
+-webkit-border-radius:3pt;
+height:22pt;
+width:85%;
+line-height:22pt;
+box-shadow: 2pt 2pt 2pt #888888;
+white-space: nowrap;
+overflow: hidden;
+text-overflow: ellipsis;
+}
+

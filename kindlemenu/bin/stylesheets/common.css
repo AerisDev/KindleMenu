@@ -74,22 +74,37 @@ background-size:13pt 13pt;
 background-position: 80% 5pt;
 }
 
-::-webkit-scrollbar {
-    height:10pt;
-    width: 10pt;
+#alert{
+position:absolute;
+background-color:white;
+top:0;
+font-size:10pt;
+display:none;
+width:98%;
+text-align:center;
+padding:9pt 0pt;
+outline:4pt solid white;
+
 }
 
-::-webkit-scrollbar:horizontal {
+::-webkit-scrollbar {
+height:10pt;
+width: 10pt;
 }
+
  
 ::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 4pt rgba(0,0,0,0.83); 
-    border-radius: 8pt;
+box-shadow: inset 0 0 4pt rgba(0,0,0,0.83); 
+border-radius: 8pt;
 
 }
  
 ::-webkit-scrollbar-thumb {
-    border-radius: 8pt;
-    -webkit-box-shadow: inset 0 0 4pt rgba(0,0,0,0.5);
+border-radius: 8pt;
+box-shadow: inset 0 0 4pt rgba(0,0,0,0.5);
 background-color:black;
+}
+
+::-webkit-scrollbar-thumb:active {
+background-color:#595959;
 }

@@ -1,0 +1,19 @@
+################################################
+# USAGE:
+# Add every shorcut like in the following sample:
+#
+# link1="Skipstone Browser"
+# command1="/mnt/us/extensions/skipstone/bin/skipstone.sh"
+#
+# link2="Eboard chess"
+# command2="/mnt/us/extensions/eboard/bin/eboard.sh"
+#
+# etc.
+#
+###############################################
+
+
+link1="Sample shortcut"
+command1="/your/script/path/goes/here.sh"
+
+
