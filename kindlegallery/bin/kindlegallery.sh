@@ -92,6 +92,7 @@ sed -i 's|^.*$|<div class="imageOuter" onclick="showImage('\''&'\'')"><div class
 sed -i -r -n -e '/.jpg|.png|.JPG|.PNG|.gif|.GIF/p' body.html
 cat header.html body.html footer.html > kindlegallery.html
 
+rm body.html
 
 # Open the gallery dialog
 lipc-set-prop com.lab126.pillow customDialog '{"name": "../../../../mnt/us/extensions/kindlegallery/bin/html/kindlegallery", "clientParams": {"dismiss": true}}'

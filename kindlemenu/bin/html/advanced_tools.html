@@ -23,11 +23,11 @@ var State = {
 // ### LAUNCHERS FUNCTIONS ###
 
 function usbnet_status(){
-nativeBridge.setLipcProperty( "com.lab126.system", "sendEvent", "; sh -c 'DISPLAY=:0 cd /mnt/us/extensions/usbnet/ ; /mnt/us/extensions/kindlemenu/bin/sh/usbnet.sh usbnet_status'");
+nativeBridge.setLipcProperty( "com.lab126.system", "sendEvent", "; sh -c 'DISPLAY=:0 cd /mnt/us/extensions/usbnet/ ; /mnt/us/extensions/kindlemenu/bin/sh/usbnet.sh usbnet_status &'");
 }
 
 function usbnet_toggle(){
-nativeBridge.setLipcProperty( "com.lab126.system", "sendEvent", "; sh -c 'DISPLAY=:0 /mnt/us/extensions/kindlemenu/bin/sh/USBNet_toggle.sh'");
+nativeBridge.setLipcProperty( "com.lab126.system", "sendEvent", "; sh -c 'DISPLAY=:0 /mnt/us/extensions/kindlemenu/bin/sh/USBNet_toggle.sh &'");
 }
 
 function launch_KUAL(){
@@ -67,8 +67,7 @@ nativeBridge.dismissMe();
 
 
 <!-- Don't remove the following code or the pillow won't show. Just ignore it... -->
-<div style="display:none"><div id="buttonZeroText" /><div id="searchEntry" /><div id="title"></div><div id="text" /></div>
-
+<div style="display:none"><div id="buttonZeroText"></div><div id="searchEntry"></div><div id="title"></div><div id="text" ></div></div>
 
   </body>
 </html>

@@ -50,7 +50,7 @@ var num=parseInt(i)+1 // convert string index to number
 eval("var workpath=path"+(num));
 var undefined;
 if (params === undefined){ params="";}
-nativeBridge.setLipcProperty( "com.lab126.system", "sendEvent", "; sh -c '"+"cd "+workpath+" ; DISPLAY=:0 "+action+" "+params+"'");
+nativeBridge.setLipcProperty( "com.lab126.system", "sendEvent", "; su -c '"+"cd "+workpath+" ; DISPLAY=:0 "+action+" "+params+" &'");
 };	
 }
 
@@ -62,7 +62,7 @@ var num=parseInt(i)+1 // convert string index to number
 eval("var workpath=path"+(num));
 var undefined;
 if (params === undefined){ params="";}
-nativeBridge.setLipcProperty( "com.lab126.system", "sendEvent", "; sh -c '"+"cd "+workpath+" ; DISPLAY=:0 "+action+" "+params+"'");
+nativeBridge.setLipcProperty( "com.lab126.system", "sendEvent", "; su -c '"+"cd "+workpath+" ; DISPLAY=:0 "+action+" "+params+" &'");
 };	
 }
 

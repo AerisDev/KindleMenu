@@ -1,0 +1,5 @@
+{
+	"items": [
+		{"name": "KindleTask", "priority":0, "action": "bin/kindletask.sh", "exitmenu":false}
+	]
+}

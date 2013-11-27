@@ -9,24 +9,19 @@
         <script type="text/javascript" src="///usr/share/webkit-1.0/pillow/javascripts/pillow.js"></script>
         <script type="text/javascript" src="///usr/share/webkit-1.0/pillow/javascripts/sample_custom_dialog.js"></script>
         <script type="text/javascript" src="///usr/share/webkit-1.0/pillow/javascripts/window_title.js"></script>
-	<link rel="stylesheet" href="../stylesheets/custom_shortcuts.css">
+	<link rel="stylesheet" href="../stylesheets/info.css">
 
 <script>
-/* Sets the dialog dimensions */
 var State = {
-    width: Pillow.pointsToPixels(200),
-    height: Pillow.pointsToPixels(200)
-}
-
-
-// ### LAUNCHERS FUNCTIONS ###
-
-function add_shorcuts(){
-nativeBridge.setLipcProperty( "com.lab126.system", "sendEvent", "; sh -c 'cd /mnt/us/extensions/kindlemenu/; DISPLAY=:0 /mnt/us/extensions/leafpad/bin/leafpad /mnt/us/extensions/kindlemenu/custom_shortcuts.txt &'");
-nativeBridge.dismissMe();
+    width: Pillow.pointsToPixels(170),
+    height: Pillow.pointsToPixels(160)
 }
 </script>
 
   </head>
-<body onload="SampleCustomDialog.init();">
-<div id="link_container" >
+<body onload="SampleCustomDialog.init();" onclick="nativeBridge.dismissMe()">
+
+<!-- Don't remove the following code or the pillow won't show. Just ignore it... -->
+<div style="display:none"><div id="buttonZeroText"></div><div id="searchEntry"></div><div id="title"></div><div id="text" ></div></div>
+
+<div id="info_container">

@@ -1,0 +1,99 @@
+#buttons_container{
+position:relative;
+margin:8pt auto;
+width:227pt;
+height:20pt;
+}
+
+.bottomButtonContainer{
+position:absolute;
+width:100%;
+bottom:5pt;
+}
+
+.bottomButton {
+margin:5pt auto;
+background-color:black;
+color:#fff;
+padding-top:3pt;
+text-align:center;
+font-size:9.5pt;
+-webkit-border-radius:3pt;
+height:17pt;
+width:30%;
+line-height:15pt;
+box-shadow: 2pt 2pt 2pt #888888;
+}
+
+.bottomButton:active {
+background-color:#595959;
+border: 1px solid #595959;
+}
+
+.button {
+margin-right:5pt;
+background-color:white;
+border:1px solid black;
+color:black;
+padding-top:3pt;
+text-align:center;
+font-size:9.5pt;
+-webkit-border-radius:3pt;
+height:17pt;
+width:70pt;
+float:left;
+line-height:15pt;
+box-shadow: 2pt 2pt 2pt #888888;
+}
+
+.button:active{
+background-color:black;
+color:white;
+}
+
+.task {
+margin:0pt auto;
+border-bottom:1pt solid gray;
+color:black;
+text-align:left;
+font-size:9.5pt;
+overflow:hidden;
+width:90%;
+line-height:14pt;
+padding:3pt 2pt 3pt 6pt;
+white-space: nowrap;
+overflow: hidden;
+text-overflow: ellipsis;
+background-color:white;
+}
+
+.task span{
+display:none;
+}
+
+::-webkit-scrollbar {
+height:10pt;
+width: 10pt;
+}
+
+
+::-webkit-scrollbar:horizontal {
+display:none;
+}
+
+::-webkit-scrollbar-track {
+box-shadow: inset 0 0 4pt rgba(0,0,0,0.83); 
+border-radius: 8pt;
+
+}
+ 
+::-webkit-scrollbar-thumb {
+border-radius: 8pt;
+box-shadow: inset 0 0 4pt rgba(0,0,0,0.5);
+background-color:black;
+}
+
+::-webkit-scrollbar-thumb:active {
+background-color:#595959;
+}
+

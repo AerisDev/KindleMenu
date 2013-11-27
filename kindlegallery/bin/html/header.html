@@ -46,7 +46,7 @@ changeCSS('../stylesheets/imageviewer-landscape.css', 0);
 function showImage(name){
 nativeBridge.hideMe(); 
 var command='"///mnt/us/images/'+name+'" image';
-nativeBridge.setLipcProperty( "com.lab126.system", "sendEvent", "; sh -c 'DISPLAY=:0 WebReaderViewer "+command+"; wait; /mnt/us/extensions/kindlegallery/bin/sh/show_gallery.sh'");
+nativeBridge.setLipcProperty( "com.lab126.system", "sendEvent", "; sh -c 'DISPLAY=:0 WebReaderViewer "+command+"; wait; /mnt/us/extensions/kindlegallery/bin/sh/show_gallery.sh &'");
 }
 
 </script>

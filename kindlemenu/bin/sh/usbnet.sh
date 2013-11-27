@@ -236,15 +236,15 @@ usbnet_status()
 
 	# Interpret it
 	case "${usbnet_status}" in
-		3 )	killall show_alert.sh & /mnt/us/extensions/kindlemenu/bin/sh/show_alert.sh "SSHD is up (usbms, wifi only)." 5 &
+		3 )	killall show_alert.sh; /mnt/us/extensions/kindlemenu/bin/sh/show_alert.sh "SSHD is up (usbms, wifi only)." 5 &
 		;;
-		4 )	killall show_alert.sh & /mnt/us/extensions/kindlemenu/bin/sh/show_alert.sh "SSHD is down (usbms, wifi only)." 5 &
+		4 )	killall show_alert.sh; /mnt/us/extensions/kindlemenu/bin/sh/show_alert.sh "SSHD is down (usbms, wifi only)." 5 &
 		;;
-		5 )	killall show_alert.sh & /mnt/us/extensions/kindlemenu/bin/sh/show_alert.sh "USBNetwork is ON (usbnet)." 5 &
+		5 )	killall show_alert.sh; /mnt/us/extensions/kindlemenu/bin/sh/show_alert.sh "USBNetwork is ON (usbnet)." 5 &
 		;;
-		6 )	killall show_alert.sh & /mnt/us/extensions/kindlemenu/bin/sh/show_alert.sh "USBNetwork is OFF (usbms)." 5 &
+		6 )	killall show_alert.sh; /mnt/us/extensions/kindlemenu/bin/sh/show_alert.sh "USBNetwork is OFF (usbms)." 5 &
 		;;
-		* )	killall show_alert.sh & /mnt/us/extensions/kindlemenu/bin/sh/show_alert.sh "USBNetwork is broken?" 5 &
+		* )	killall show_alert.sh; /mnt/us/extensions/kindlemenu/bin/sh/show_alert.sh "USBNetwork is broken?" 5 &
 		;;
 	esac
 }

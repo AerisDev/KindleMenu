@@ -1,0 +1,57 @@
+body{
+overflow:none;
+}
+
+#info_container{
+width:95%;
+height:160pt;
+margin:5pt 8pt;
+}
+
+.bottomButtonContainer{
+position:absolute;
+width:100%;
+bottom:5pt;
+}
+
+.bottomButton {
+margin:5pt auto;
+background-color:black;
+color:#fff;
+padding-top:3pt;
+text-align:center;
+font-size:9.5pt;
+-webkit-border-radius:3pt;
+height:17pt;
+width:40%;
+line-height:15pt;
+box-shadow: 2pt 2pt 2pt #888888;
+}
+
+::-webkit-scrollbar {
+display:none;
+height:10pt;
+width: 10pt;
+}
+
+
+::-webkit-scrollbar:horizontal {
+display:none;
+}
+
+::-webkit-scrollbar-track {
+box-shadow: inset 0 0 4pt rgba(0,0,0,0.83); 
+border-radius: 8pt;
+
+}
+ 
+::-webkit-scrollbar-thumb {
+border-radius: 8pt;
+box-shadow: inset 0 0 4pt rgba(0,0,0,0.5);
+background-color:black;
+}
+
+::-webkit-scrollbar-thumb:active {
+background-color:#595959;
+}
+

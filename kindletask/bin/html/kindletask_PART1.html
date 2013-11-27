@@ -1,0 +1,104 @@
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+
+
+        <script type="text/javascript" src="///usr/share/webkit-1.0/pillow/strings/sample_custom_dialog_strings.js"></script>
+        <script type="text/javascript" src="///usr/share/webkit-1.0/pillow/javascripts/local_debug.js"></script>
+        <script type="text/javascript" src="///usr/share/webkit-1.0/pillow/javascripts/constants.js"></script>
+        <script type="text/javascript" src="///usr/share/webkit-1.0/pillow/javascripts/pillow.js"></script>
+        <script type="text/javascript" src="///usr/share/webkit-1.0/pillow/javascripts/sample_custom_dialog.js"></script>
+        <script type="text/javascript" src="///usr/share/webkit-1.0/pillow/javascripts/window_title.js"></script>
+        <link rel="stylesheet" type="text/css" href="../stylesheets/portrait.css" media="screen" />
+        <link rel="stylesheet" type="text/css" href="../stylesheets/common.css" media="screen" />
+
+
+
+
+<script>
+       /* CSS switcher */
+        function changeCSS(cssFile, cssLinkIndex) {
+
+            var oldlink = document.getElementsByTagName("link").item(cssLinkIndex);
+
+            var newlink = document.createElement("link");
+            newlink.setAttribute("rel", "stylesheet");
+            newlink.setAttribute("type", "text/css");
+            newlink.setAttribute("href", cssFile);
+
+            document.getElementsByTagName("head").item(0).replaceChild(newlink, oldlink);
+        }
+
+	/* Sets the dialog dimensions */
+        var State = {
+            width: Pillow.pointsToPixels(255),
+            height: Pillow.pointsToPixels(318)
+        }
+
+        /* Loads landscape.css if the device is in landscape mode, and change dialog ratio */
+        var orientation = nativeBridge.getStringLipcProperty("com.lab126.winmgr", "orientation");
+        if (orientation != "U") {
+            State = {
+                width: Pillow.pointsToPixels(345),
+                height: Pillow.pointsToPixels(228)
+            }
+	    changeCSS('../stylesheets/landscape.css', 0);
+        }
+
+
+	var current;
+
+
+	function current_pid(){
+		if (current!=undefined){
+		var pid = current.innerHTML.match(/\d+/);
+		pid = parseInt(pid[0], 10);
+		return pid;
+		}
+		else return 0;
+	}
+
+
+	function select(this_task){
+		var undefined;
+		if (this_task==current && current!=undefined){
+			current.style.cssText = "text-overflow: ellipsis;white-space: nowrap;background-color:white;";
+			current=undefined;
+			return;	
+		}
+		if (current!=undefined){
+			current.style.cssText = "text-overflow: ellipsis;white-space:nowrap;background-color:white;";
+		}
+		this_task.style.cssText = "text-overflow:clip;word-wrap:break-word;white-space: normal;background-color:#cbcbcb;";
+		current=this_task;
+		var pid = this_task.innerHTML.match(/\d+/);
+		pid = parseInt(pid[0], 10);
+	}
+
+	function kill(signal){
+		pid=current_pid();
+		if (pid!=0) nativeBridge.setLipcProperty("com.lab126.system", "sendEvent", "; su -c 'kill -"+signal+" "+pid+";if [ $? == 0 ];then /mnt/us/extensions/kindletask/bin/sh/restart_kindletask.sh & fi'");
+	}
+
+	function info(){
+		pid=current_pid();
+		if (pid!=0) nativeBridge.setLipcProperty("com.lab126.system", "sendEvent", "; su -c '/mnt/us/extensions/kindletask/bin/sh/process_info.sh "+pid+" &'");
+	}
+
+</script>
+
+  </head>
+
+
+<body onload="SampleCustomDialog.init();">
+
+
+	<div id="buttons_container">
+		<div class="button" onclick="kill(15);" >✔ Terminate</div>
+		<div class="button" onclick="kill(9);" >✘ Kill</div>
+		<div class="button" onclick="info()" >Info</div>
+	</div>
+
+<div id="task_container">
+
+

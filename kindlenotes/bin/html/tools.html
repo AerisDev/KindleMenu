@@ -37,22 +37,22 @@ State = {
 // ### LAUNCHERS FUNCTIONS ###
 
 function edit_leafpad(){
-nativeBridge.setLipcProperty( "com.lab126.system", "sendEvent", "; sh -c 'DISPLAY=:0 /mnt/us/extensions/kindlenotes/bin/sh/edit_with_leafpad.sh'");
+nativeBridge.setLipcProperty( "com.lab126.system", "sendEvent", "; sh -c 'DISPLAY=:0 /mnt/us/extensions/kindlenotes/bin/sh/edit_with_leafpad.sh &'");
 nativeBridge.dismissMe();
 }
 
 function export_leafpad(){
-nativeBridge.setLipcProperty( "com.lab126.system", "sendEvent", "; sh -c '/mnt/us/extensions/kindlenotes/bin/sh/export_notes.sh /mnt/us/extensions/leafpad/notes/'");
+nativeBridge.setLipcProperty( "com.lab126.system", "sendEvent", "; sh -c '/mnt/us/extensions/kindlenotes/bin/sh/export_notes.sh /mnt/us/extensions/leafpad/notes/ &'");
 nativeBridge.dismissMe();
 }
 
 function export_leafpad_open(){
-nativeBridge.setLipcProperty( "com.lab126.system", "sendEvent", "; sh -c 'DISPLAY=:0 /mnt/us/extensions/kindlenotes/bin/sh/export_notes.sh /mnt/us/extensions/leafpad/notes/ leafpad'");
+nativeBridge.setLipcProperty( "com.lab126.system", "sendEvent", "; sh -c 'DISPLAY=:0 /mnt/us/extensions/kindlenotes/bin/sh/export_notes.sh /mnt/us/extensions/leafpad/notes/ leafpad &'");
 nativeBridge.dismissMe();
 }
 
 function export_documents(){
-nativeBridge.setLipcProperty( "com.lab126.system", "sendEvent", "; sh -c '/mnt/us/extensions/kindlenotes/bin/sh/export_notes.sh /mnt/us/documents/'");
+nativeBridge.setLipcProperty( "com.lab126.system", "sendEvent", "; sh -c '/mnt/us/extensions/kindlenotes/bin/sh/export_notes.sh /mnt/us/documents/ &'");
 nativeBridge.dismissMe();
 }
 </script>
@@ -70,6 +70,7 @@ nativeBridge.dismissMe();
 
 
 <!-- Don't remove the following code or the pillow won't show. Just ignore it... -->
-<div class="pillowDialogTitle2" style="display:none"><span id="title"></span></div><div style="display:none"> <div class="mainDiv" id="mainDiv"> <div class="pillowDialogMainText"> <span id="text"></span> </div> <div class="searchDiv" id="searchDiv" style="display:none"> <form name="myform"> <input id="searchEntry" class="graySearchText" type="text" onFocus="SampleCustomDialog.searchFieldFocused();" onBlur="SampleCustomDialog.searchFieldBlured();" onkeyup="SampleCustomDialog.searchFieldKeyUp();" size="20" value=""> </form> </div><p id="demo"></p><div class="pillowDialogButtonBar"> <div class="buttonCell"> <div class="pillowCustomButton2 pillowDialogBarButton2" id="buttonZero" onclick="SampleCustomDialog.buttonZeroSelect();"> <span id="buttonZeroText"></span> </div> </div> </div></div>
-  </body>
+<div style="display:none"><div id="buttonZeroText"></div><div id="searchEntry"></div><div id="title"></div><div id="text" ></div></div>
+
+</body>
 </html>

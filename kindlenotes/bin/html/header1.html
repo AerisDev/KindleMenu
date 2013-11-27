@@ -11,7 +11,7 @@
         <script type="text/javascript" src="///usr/share/webkit-1.0/pillow/javascripts/window_title.js"></script>
         <script type="text/javascript" src="../js/hammer.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="../stylesheets/portrait.css?version=0.2" media="screen"  />
-	<link rel="stylesheet" type="text/css" href="../stylesheets/common.css?version=0.33" media="screen"  />
+	<link rel="stylesheet" type="text/css" href="../stylesheets/common.css?version=2.33" media="screen"  />
 
 
 <script>
@@ -55,7 +55,7 @@ function change_file(selectednumber){
 	var returned=getCurrentPageNumber();
 	if(selectednumber!=returned){
 	nativeBridge.dismissMe();
-	MESSAGE="; sh -c '/mnt/us/extensions/kindlenotes/bin/kindlenotes.sh "+selectednumber+"'";
+	MESSAGE="; sh -c '/mnt/us/extensions/kindlenotes/bin/kindlenotes.sh "+selectednumber+" &'";
 	nativeBridge.setLipcProperty( "com.lab126.system", "sendEvent", MESSAGE);
 	}
 }
@@ -67,7 +67,7 @@ function saveText(){
 	var text1=text.replace(/'/g,"\002");
 	var text2=text1.replace(/"/g,"\003");
 	var text3=text2.replace(/\$/g,"\004");
-	var MESSAGE='; sh -c \'DISPLAY=:0 echo "'+text3+'" > /mnt/us/extensions/kindlenotes/bin/notes/note'+current+'.txt; /mnt/us/extensions/kindlenotes/bin/sh/parse_saved_note.sh '+current+'\'';
+	var MESSAGE='; sh -c \'DISPLAY=:0 echo "'+text3+'" > /mnt/us/extensions/kindlenotes/bin/notes/note'+current+'.txt; /mnt/us/extensions/kindlenotes/bin/sh/parse_saved_note.sh '+current+' & \'';
 nativeBridge.setLipcProperty( "com.lab126.system", "sendEvent", MESSAGE);
 }
 

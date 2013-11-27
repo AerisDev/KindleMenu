@@ -19,9 +19,14 @@ SCRIPT=`cat << 'JAVASCRIPT' | tr -d '\n' | sed -e 's,",\\\\",g'
     return;
   }
 
-  /* Text should be black to be visible. */      
+/* If the % mode is already on, turn it off and exit */
+if (_batteryMeterEl.style.backgroundColor=="black"){
+nativeBridge.setLipcProperty("com.lab126.pillow","disableEnablePillow","disable");
+nativeBridge.setLipcProperty("com.lab126.pillow","disableEnablePillow","enable");
+nativeBridge.setLipcProperty("com.lab126.system", "sendEvent", "; sh -c '/mnt/us/extensions/kindlemenu/bin/kindlemenu.sh; /mnt/us/extensions/kindlemenu/bin/sh/sleep_and_run.sh 5 /mnt/us/extensions/kindlemenu/bin/shortcut.sh &'");return;}
+
+   
   _batteryMeterEl.style.color = "white";
-  /* Hack style to set vertical alignment of text. */
   _batteryMeterEl.style.lineHeight = "5.2pt";
   /* Add style for smaller font size. */
   _batteryMeterEl.style.fontSize = "7.2pt";
@@ -72,11 +77,17 @@ SCRIPT=`cat << 'JAVASCRIPT' | tr -d '\n' | sed -e 's,",\\\\",g'
     return;
   }
 
-  /* Text should be black to be visible. */      
+
+/* If the % mode is already on, turn it off and exit */
+if (_batteryMeterEl.style.backgroundColor=="black"){
+nativeBridge.setLipcProperty("com.lab126.pillow","disableEnablePillow","disable");
+nativeBridge.setLipcProperty("com.lab126.pillow","disableEnablePillow","enable");
+nativeBridge.setLipcProperty("com.lab126.system", "sendEvent", "; sh -c '/mnt/us/extensions/kindlemenu/bin/kindlemenu.sh; /mnt/us/extensions/kindlemenu/bin/sh/sleep_and_run.sh 5 /mnt/us/extensions/kindlemenu/bin/shortcut.sh &'");return;}
+
+    
   _batteryMeterEl.style.color = "white";
   /* Hack style to set vertical alignment of text. */
   _batteryMeterEl.style.lineHeight = "5.2pt";
-  /* Add style for smaller font size. */
   _batteryMeterEl.style.fontSize = "7.2pt";
   /* Background color for hiding the battery */
   _batteryMeterEl.style.backgroundColor="black";
