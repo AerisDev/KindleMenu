@@ -103,7 +103,7 @@ the moment */
                 status = '"Wireless disabled."'
             }
             nativeBridge.setIntLipcProperty("com.lab126.cmd", "wirelessEnable", invertedState);
-            nativeBridge.setLipcProperty("com.lab126.system", "sendEvent", "; su -c 'killall show_alert.sh; DISPLAY=:0 /mnt/us/extensions/kindlemenu/bin/sh/show_alert.sh " + status + " 3 &'");
+            nativeBridge.setLipcProperty("com.lab126.system", "sendEvent", "; su -c 'killall show_alert.sh; /mnt/us/extensions/kindlemenu/bin/sh/show_alert.sh " + status + " 3 &'");
         }
 
         function toggle_screensaver() {
@@ -114,7 +114,7 @@ the moment */
                 status = '"Prevent screensaver disabled."'
             }
             nativeBridge.setIntLipcProperty("com.lab126.powerd", "preventScreenSaver", invertedState);
-            nativeBridge.setLipcProperty("com.lab126.system", "sendEvent", "; sh -c 'killall show_alert.sh; DISPLAY=:0 /mnt/us/extensions/kindlemenu/bin/sh/show_alert.sh " + status + " 3 &'");
+            nativeBridge.setLipcProperty("com.lab126.system", "sendEvent", "; sh -c 'killall show_alert.sh; /mnt/us/extensions/kindlemenu/bin/sh/show_alert.sh " + status + " 3 &'");
         }
 
          // ### APP LAUNCHERS FUNCTIONS ###
@@ -161,7 +161,7 @@ Side effect: battery percent and shorcut will be (re-)enabled even if user didn'
         <div class="trayicon" style="background-image:url('icons/calendar.png');" onclick="launch_dialog('/mnt/us/extensions/kindlemenu/bin/html/calendar',0)"></div>
         <div class="trayicon" style="background-image:url('icons/info.png');" onclick="launch_dialog('/mnt/us/extensions/kindlemenu/bin/html/info',0)"></div>
         <div class="trayicon" style="background-image:url('icons/tools.png');" onclick="launch_dialog('/mnt/us/extensions/kindlemenu/bin/html/advanced_tools',0)"></div>
-        <div class="trayicon" style="background-image:url('icons/shorcuts.png');" onclick="script_launcher('/mnt/us/extensions/kindlemenu/bin/sh/custom_shorcuts.sh',0)"></div>
+        <div class="trayicon" style="background-image:url('icons/shorcuts.png');" onclick="script_launcher('/mnt/us/extensions/kindlemenu/bin/sh/custom_shorcuts.sh',1)"></div>
     </div>
 
     <!-- App launchers section -->

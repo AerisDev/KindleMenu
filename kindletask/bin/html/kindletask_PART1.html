@@ -47,8 +47,9 @@
 
 
 	var current;
+	var undefined;
 
-
+	/* finds selected task pid */
 	function current_pid(){
 		if (current!=undefined){
 		var pid = current.innerHTML.match(/\d+/);
@@ -58,9 +59,9 @@
 		else return 0;
 	}
 
-
+	/* selects a task */
 	function select(this_task){
-		var undefined;
+		
 		if (this_task==current && current!=undefined){
 			current.style.cssText = "text-overflow: ellipsis;white-space: nowrap;background-color:white;";
 			current=undefined;
@@ -75,14 +76,16 @@
 		pid = parseInt(pid[0], 10);
 	}
 
+	/* killer function */
 	function kill(signal){
 		pid=current_pid();
-		if (pid!=0) nativeBridge.setLipcProperty("com.lab126.system", "sendEvent", "; su -c 'kill -"+signal+" "+pid+";if [ $? == 0 ];then /mnt/us/extensions/kindletask/bin/sh/restart_kindletask.sh & fi'");
+		if (current!=undefined) nativeBridge.setLipcProperty("com.lab126.system", "sendEvent", "; su -c 'kill -"+signal+" "+pid+";if [ $? == 0 ];then /mnt/us/extensions/kindletask/bin/sh/restart_kindletask.sh & fi'");
 	}
-
+	
+	/* show process informations */
 	function info(){
 		pid=current_pid();
-		if (pid!=0) nativeBridge.setLipcProperty("com.lab126.system", "sendEvent", "; su -c '/mnt/us/extensions/kindletask/bin/sh/process_info.sh "+pid+" &'");
+		if (current!=undefined) nativeBridge.setLipcProperty("com.lab126.system", "sendEvent", "; su -c '/mnt/us/extensions/kindletask/bin/sh/process_info.sh "+pid+" &'");
 	}
 
 </script>
@@ -96,7 +99,7 @@
 	<div id="buttons_container">
 		<div class="button" onclick="kill(15);" >✔ Terminate</div>
 		<div class="button" onclick="kill(9);" >✘ Kill</div>
-		<div class="button" onclick="info()" >Info</div>
+		<div class="button" onclick="info();" >Info</div>
 	</div>
 
 <div id="task_container">

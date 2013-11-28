@@ -19,11 +19,14 @@ var State = {
 }
 
 
-// ### LAUNCHERS FUNCTIONS ###
-
 function add_shorcuts(){
 nativeBridge.setLipcProperty( "com.lab126.system", "sendEvent", "; sh -c 'cd /mnt/us/extensions/kindlemenu/; DISPLAY=:0 /mnt/us/extensions/leafpad/bin/leafpad /mnt/us/extensions/kindlemenu/custom_shortcuts.txt &'");
 nativeBridge.dismissMe();
+}
+
+// to avoid problems, we force the use of portrait mode
+function force_portrait(){
+nativeBridge.setLipcProperty("com.lab126.winmgr", "orientationLock", "U");
 }
 </script>
 

@@ -24,7 +24,7 @@ for i in `seq 1 30`;do
 	path=$(dirname ${commandnew})
 
 		echo "<script>function function$i(){nativeBridge.dismissMe();nativeBridge.setLipcProperty( "'"com.lab126.system", "sendEvent", "; sh -c '"'cd $path; DISPLAY=:0 ""$commandnew"" &'"'");}</script>' >> custom_links_list.txt
-		echo '<div class="button" onclick="function'"$i"'()">'"$linknew"'</div>' >> custom_links_list.txt
+		echo '<div class="button" onclick="force_portrait();function'"$i"'()">'"$linknew"'</div>' >> custom_links_list.txt
 	fi
 done
 

@@ -1,3 +1,9 @@
+.bottomButtonContainer{
+position:absolute;
+width:100%;
+bottom:2pt;
+}
+
 .bottomButton {
 margin:5pt auto;
 background-color:black;

@@ -63,6 +63,13 @@ function change_file(selectednumber){
 /* Save text to note.txt, after parsing characters ", '*/
 function saveText(){
 	var current=getCurrentPageNumber();
+	var undefined;
+	if (current == undefined){
+		var MESSAGE2="; sh -c '/mnt/us/extensions/kindlenotes/bin/sh/show_alert.sh \"Something did go wrong!\" 2 &'";
+		nativeBridge.setLipcProperty( "com.lab126.system", "sendEvent", MESSAGE2);
+	return;
+	}
+
 	var text=document.getElementById("Textarea").value.replace(new RegExp( "\\n", "g" ),"\001");;
 	var text1=text.replace(/'/g,"\002");
 	var text2=text1.replace(/"/g,"\003");

@@ -43,27 +43,14 @@ State = {
 changeCSS('../stylesheets/extensions_landscape.css', 0);
 }
 
-
-function generator(i,action,params){
-window['dynamicFunction'+i]=function(){
-var num=parseInt(i)+1 // convert string index to number
-eval("var workpath=path"+(num));
-var undefined;
-if (params === undefined){ params="";}
-nativeBridge.setLipcProperty( "com.lab126.system", "sendEvent", "; su -c '"+"cd "+workpath+" ; DISPLAY=:0 "+action+" "+params+" &'");
-};	
-}
-
-var globalChildCounter=1;
-
-function generatorChild(i,action,params){
-window['dynamicFunctionChild'+globalChildCounter]=function(){
-var num=parseInt(i)+1 // convert string index to number
-eval("var workpath=path"+(num));
-var undefined;
-if (params === undefined){ params="";}
-nativeBridge.setLipcProperty( "com.lab126.system", "sendEvent", "; su -c '"+"cd "+workpath+" ; DISPLAY=:0 "+action+" "+params+" &'");
-};	
+/* Launches the command */
+function launcher(i,action,params){
+	i++;
+	eval("var workpath=path"+(i));
+	var undefined;
+	if (params === undefined){ params="";}
+	nativeBridge.setLipcProperty("com.lab126.winmgr", "orientationLock", "U"); // set portrait mode to avoid problems
+	nativeBridge.setLipcProperty( "com.lab126.system", "sendEvent", "; su -c '"+"cd "+workpath+" ; DISPLAY=:0 "+action+" "+params+" &'");
 }
 
 var lastShown=0;
@@ -79,11 +66,9 @@ function showChildren(i){
 	lastShown=i;
 }
 
-
+/* Builds up the app buttons structure */
 function buildPage(){
 	var container=document.getElementById('container');
-
-
 
 		for (var i in myJSONObject.items) {
 			action=myJSONObject.items[i].items[0].action;
@@ -91,8 +76,7 @@ function buildPage(){
 			var undefined;
 			// If the menu entry has no children
 			if (action !== undefined){
-				generator(i,action,params);
-				container.innerHTML=container.innerHTML+"<div class='button' onclick='nativeBridge.dismissMe();dynamicFunction"+i+"()' >"+myJSONObject.items[i].items[0].name+"</div>";
+				container.innerHTML=container.innerHTML+"<div class='button' onclick='nativeBridge.dismissMe();launcher("+i+","+'"'+action+'"'+","+'"'+params+'"'+")' >"+myJSONObject.items[i].items[0].name+"</div>";
 			}
 
 			// If the menu entry has children
@@ -103,21 +87,10 @@ function buildPage(){
 				for (var j in myJSONObject.items[i].items[0].items) {
 				action=myJSONObject.items[i].items[0].items[j].action;
 				params=myJSONObject.items[i].items[0].items[j].params;
-				generatorChild(i,action,params);
 				var childContainer=document.getElementById('childContainer'+i);
-				childContainer.innerHTML=childContainer.innerHTML+"<div class='buttonGray' onclick='nativeBridge.dismissMe();dynamicFunctionChild"+globalChildCounter+"()' >"+myJSONObject.items[i].items[0].items[j].name+"</div>";
-		globalChildCounter++;
-				}
-
-				
+				childContainer.innerHTML=childContainer.innerHTML+"<div class='buttonGray' onclick='nativeBridge.dismissMe();launcher("+i+","+'"'+action+'"'+","+'"'+params+'"'+")' >"+myJSONObject.items[i].items[0].items[j].name+"</div>";
+				}				
 			}
-
 		}
 
-
-
-
-
 }
-
-

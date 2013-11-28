@@ -1,5 +1,4 @@
 #!/bin/sh
-sleep 12
 /mnt/us/koreader/koreader.sh /mnt/us/documents
 # wait the script to finish, i.e. until koreader closes
 wait
