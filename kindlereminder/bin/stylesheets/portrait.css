@@ -1,0 +1,14 @@
+.list{
+margin:-10pt 0pt 6pt 4pt;
+height:140pt;
+width:240pt;
+overflow:auto;
+}
+
+.list-item{
+text-overflow:clip;
+word-wrap:break-word;
+white-space: normal;
+float:left;
+width:80%;
+}

@@ -43,6 +43,7 @@
             changeCSS('stylesheets/landscape.css', 0);
         }
 
+
         /* Onload custom events */
         function custom_init() {
 
@@ -61,11 +62,16 @@
             document.body.addEventListener("mouseout", function () {
                 if (swiped) {
                     swiped = false;
-                    nativeBridge.dismissMe();
+                    custom_dismiss();
                 }
             });
 
         }
+
+	function custom_dismiss(){
+		nativeBridge.dismissMe();
+		nativeBridge.setLipcProperty("com.lab126.pillow", "customDialog", '{"name": "../../../../mnt/us/extensions/kindlemenu/bin/html/blank", "clientParams": {"dismiss": true}}');
+	}
 
         /* This function kills apps while switching between them. For now, you can only
 switch while using status-bar-enabled apps like explorer, so we are killing just it for
@@ -78,14 +84,14 @@ the moment */
 
         /* general purpose command launcher */
         function script_launcher(command, dismiss_dialog) {
-            if (dismiss_dialog == 1) nativeBridge.dismissMe();
+            if (dismiss_dialog == 1) custom_dismiss();
             nativeBridge.setLipcProperty("com.lab126.system", "sendEvent", "; sh -c 'DISPLAY=:0 " + command + " &'");
         }
 
         /* simple dialog launcher */
         function launch_dialog(path, dismiss_dialog) {
             if (dismiss_dialog == 1) {
-                nativeBridge.dismissMe();
+                custom_dismiss();
             }
             var MESSAGE0 = '../../../..' + path;
             var MESSAGE1 = '{"dismiss": true}';
@@ -123,7 +129,7 @@ the moment */
          // General purpose script launcher function. Get the command as first argument, and
          // the number 1 to force portrait mode (certain apps require it)
         function default_run(command, portrait_mode_only) {
-            nativeBridge.dismissMe();
+            custom_dismiss();
             killallprocesses();
             if (portrait_mode_only == 1) {
                 nativeBridge.setLipcProperty("com.lab126.winmgr", "orientationLock", "U");
@@ -133,7 +139,7 @@ the moment */
 
 
         function koreader() {
-            nativeBridge.dismissMe();
+            custom_dismiss();
             killallprocesses();
             nativeBridge.setLipcProperty("com.lab126.appmgrd", "start", "app://com.lab126.booklet.home");
             nativeBridge.setLipcProperty("com.lab126.pillow", "disableEnablePillow", "disable");
@@ -166,30 +172,54 @@ Side effect: battery percent and shorcut will be (re-)enabled even if user didn'
 
     <!-- App launchers section -->
     <div id="appContainer">
-        <div class="appOuter" onclick="default_run('/mnt/us/extensions/midori/runit.sh',1)" id="midori">
-            <div class="appIcon" style="background-image:url('icons/midori.jpg');"></div>
-            <div class="appName">Midori</div>
+
+        <div class="appOuter" onclick="script_launcher('/mnt/us/extensions/kindlenotes/bin/kindlenotes.sh',1)">
+            <div class="appIcon" style="background-image:url('icons/notes.jpg');"></div>
+            <div class="appName" >Notes</div>
         </div>
+
+
+        <div class="appOuter" onclick="default_run('/mnt/us/extensions/kindlegallery/bin/kindlegallery.sh',1)">
+            <div class="appIcon" style="background-image:url('icons/imageviewer.jpg');"></div>
+            <div class="appName">Gallery</div>
+        </div>
+
+        <div class="appOuter" onclick="script_launcher('/mnt/us/extensions/kindlereminder/bin/kindlereminder.sh',1)">
+            <div class="appIcon" style="background-image:url('icons/reminder.jpg');"></div>
+            <div class="appName" >Reminder</div>
+        </div>
+
+
         <div class="appOuter" onclick="default_run('/mnt/us/extensions/leafpad/bin/leafpad.sh',1)">
             <div class="appIcon" style="background-image:url('icons/leafpad.jpg');"></div>
             <div class="appName">Leafpad</div>
         </div>
+
+        <div class="appOuter" onclick="default_run('/mnt/us/extensions/midori/runit.sh',1)" id="midori">
+            <div class="appIcon" style="background-image:url('icons/midori.jpg');"></div>
+            <div class="appName">Midori</div>
+        </div>
+
         <div class="appOuter" onclick="default_run('/mnt/us/extensions/explorer/bin/explorer.sh',0)">
             <div class="appIcon" style="background-image:url('icons/explorer.jpg');"></div>
             <div class="appName">File Explorer</div>
         </div>
+
         <div class="appOuter" onclick="default_run('/mnt/us/extensions/rgbpaint/usr/bin/rgbpaint.sh',0)">
             <div class="appIcon" style="background-image:url('icons/rgbpaint.jpg');"></div>
             <div class="appName">rgbPaint</div>
         </div>
+
         <div class="appOuter" onclick="default_run('cd /mnt/us/extensions/kterm; DISPLAY=:0 /mnt/us/extensions/kterm/bin/kterm.sh',1)">
             <div class="appIcon" style="background-image:url('icons/kterm.jpg');"></div>
             <div class="appName">Kterm</div>
         </div>
+
         <div class="appOuter" onclick="default_run('/mnt/us/extensions/galculator/usr/bin/run.sh',0)">
             <div class="appIcon" style="background-image:url('icons/galculator.jpg');"></div>
             <div class="appName">Galculator</div>
         </div>
+
         <div class="appOuter" onclick="koreader()" id="koreader">
             <div class="appIcon" style="background-image:url('icons/koreader.jpg');"></div>
             <div class="appName">KOReader</div>
@@ -198,26 +228,25 @@ Side effect: battery percent and shorcut will be (re-)enabled even if user didn'
             <div class="appIcon" style="background-image:url('icons/whiteboard.jpg');"></div>
             <div class="appName">Whiteboard</div>
         </div>
-        <div class="appOuter" onclick="default_run('/mnt/us/extensions/kindlegallery/bin/kindlegallery.sh',0)">
-            <div class="appIcon" style="background-image:url('icons/imageviewer.jpg');"></div>
-            <div class="appName">KindleGallery</div>
-        </div>
+
         <div class="appOuter" onclick="default_run('/mnt/us/extensions/gargoyle/gargoyle.sh',1)">
             <div class="appIcon" style="background-image:url('icons/gargoyle.jpg');"></div>
             <div class="appName">Gargoyle</div>
         </div>
 
+    </div>
+
        <!-- Bottom buttons section -->
         <div id="buttonsBar">
-            <div class="bottomButton black" onclick="script_launcher('/mnt/us/extensions/kindlenotes/bin/kindlenotes.sh',1)">Notes</div>
+            <div class="bottomButton gray" onclick="">About</div>
             <div class="bottomButton gray" onclick="">>></div>
-            <div class="bottomButton gray" onclick="">
-                <<</div>
-                    <div class="bottomButton black exitButton" onclick="nativeBridge.dismissMe();">Exit</div>
+            <div class="bottomButton gray" onclick=""><<</div>
+                    <div class="bottomButton black exitButton" onclick="custom_dismiss();">Exit</div>
                     <div class="bottomButton black" onclick="script_launcher('/mnt/us/extensions/kindlemenu/bin/sh/extensions.sh',1)">More apps</div>
                     <div class="bottomButton black" onclick="script_launcher('/mnt/us/extensions/kindletask/bin/kindletask.sh',1)">KindleTask</div>
             </div>
         </div>
+
 
 <!-- Don't remove the following code or the pillow won't show. Just ignore it... -->
 <div style="display:none"><div id="buttonZeroText"></div><div id="searchEntry"></div><div id="title"></div><div id="text" ></div></div>

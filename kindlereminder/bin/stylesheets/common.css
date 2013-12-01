@@ -1,0 +1,118 @@
+    .done-true {
+    text-decoration: line-through;
+    color: gray;
+    }
+
+label {
+    display: block;
+    position: relative;
+}
+input[type=checkbox] {
+    width: 11pt;
+    height: 11pt;
+    padding: 0;
+    margin-right:7pt;
+    vertical-align: center;
+    position: relative;
+    top:2pt;
+float:left;
+clear:left;
+}
+
+input[type=text]{
+border-top: 1px solid #339933;
+border-bottom: 1px solid #339933;
+margin:0pt 0 3pt -5pt;
+font-size: 10pt;
+padding: 3pt 45pt 3pt 7pt;
+outline: 0;
+-webkit-appearance: none;
+width:104%;
+}
+
+input[type=submit]{
+background-color:#444444;
+text-shadow: 2px 2px 0px black;
+border:1px solid black;
+color:white;
+text-align:center;
+border-radius:3pt;
+box-shadow: 2pt 2pt 2pt #888888;
+position:absolute;
+right:5pt;
+top:21pt;
+padding:1pt 5pt;
+}
+
+input[type=submit]:active{
+background-color:black;
+}
+
+.button {
+float:left;
+width:114pt;
+margin:0 3pt 5pt 3pt;
+background-color:white;
+border:1px solid black;
+color:black;
+padding-top:3pt;
+text-align:center;
+font-size:9.5pt;
+height:17pt;
+line-height:15pt;
+border-radius:3pt;
+box-shadow: 2pt 2pt 2pt #888888;
+}
+
+
+
+.button:active{
+background-color:black;
+color:white;
+}
+
+.buttonContainer{
+width:240pt;
+margin:0 auto 3pt auto;
+height:24pt;
+}
+
+
+.remaining{
+background-color:black;
+font-size: 10pt;
+line-height:15pt;
+margin:0pt 0 3pt -5pt;
+color:white;
+width:110%;
+text-align:center;
+}
+
+
+::-webkit-scrollbar {
+height:10pt;
+width: 10pt;
+}
+
+::-webkit-scrollbar:horizontal {
+display:none;
+}
+
+ 
+::-webkit-scrollbar-track {
+box-shadow: inset 0 0 4pt rgba(0,0,0,0.83); 
+border-radius: 8pt;
+
+}
+ 
+::-webkit-scrollbar-thumb {
+border-radius: 8pt;
+box-shadow: inset 0 0 4pt rgba(0,0,0,0.5);
+background-color:black;
+}
+
+::-webkit-scrollbar-thumb:active {
+background-color:#595959;
+}
+
+

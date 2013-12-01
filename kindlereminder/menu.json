@@ -1,0 +1,5 @@
+{
+	"items": [
+		{"name": "KindleReminder", "priority":0, "action": "bin/kindlereminder.sh", "exitmenu":false}
+	]
+}

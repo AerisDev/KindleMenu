@@ -1,0 +1,98 @@
+<html lang="en" dir="ltr" ng-app>
+    <head>
+        <meta charset="utf-8">
+
+
+        <script type="text/javascript" src="///usr/share/webkit-1.0/pillow/strings/sample_custom_dialog_strings.js"></script>
+        <script type="text/javascript" src="///usr/share/webkit-1.0/pillow/javascripts/local_debug.js"></script>
+        <script type="text/javascript" src="///usr/share/webkit-1.0/pillow/javascripts/constants.js"></script>
+        <script type="text/javascript" src="///usr/share/webkit-1.0/pillow/javascripts/pillow.js"></script>
+        <script type="text/javascript" src="///usr/share/webkit-1.0/pillow/javascripts/sample_custom_dialog.js"></script>
+        <script type="text/javascript" src="///usr/share/webkit-1.0/pillow/javascripts/window_title.js"></script>
+        <script type="text/javascript" src="///usr/share/webkit-1.0/pillow/javascripts/window_title.js"></script>
+        <link rel="stylesheet" type="text/css" href="stylesheets/portrait.css?version=0.01" media="screen" />
+        <link rel="stylesheet" type="text/css" href="stylesheets/common.css?version=0.01" media="screen" />
+        <script src="js/angular.min.js"></script>
+        <script src="js/todo.js"></script>
+
+<script>
+        /* CSS switcher */
+        function changeCSS(cssFile, cssLinkIndex) {
+
+            var oldlink = document.getElementsByTagName("link").item(cssLinkIndex);
+
+            var newlink = document.createElement("link");
+            newlink.setAttribute("rel", "stylesheet");
+            newlink.setAttribute("type", "text/css");
+            newlink.setAttribute("href", cssFile);
+
+            document.getElementsByTagName("head").item(0).replaceChild(newlink, oldlink);
+        }
+
+        /* Sets the dialog dimensions */
+        var State = {
+            width: Pillow.pointsToPixels(255),
+            height: Pillow.pointsToPixels(318)
+        }
+
+        /* Loads landscape.css if the device is in landscape mode, and change dialog ratio */
+        var orientation = nativeBridge.getStringLipcProperty("com.lab126.winmgr", "orientation");
+        if (orientation != "U") {
+            State = {
+                width: Pillow.pointsToPixels(345),
+                height: Pillow.pointsToPixels(228)
+            }
+            changeCSS('stylesheets/landscape.css?version=0.05', 0);
+        }
+
+
+function custom_init(){
+document.getElementById('todoText').focus();
+document.getElementById('todoText').onblur = function (event) { var blurEl = this; setTimeout(function() {blurEl.focus()},10) };
+}
+
+
+</script>
+
+  </head>
+<body onload="SampleCustomDialog.init();nativeBridge.showKb();custom_init();">
+
+    <div id "main" ng-controller="TodoCtrl">
+	<div class="remaining" >{{remaining()}} of {{todos.length}} remaining</div>
+
+        <div class="text-container">
+		<form ng-submit="addTodo();">
+            		<input type="text" id="todoText" ng-model="todoText" size="30" >
+	            <input class="btn-primary" type="submit" value="add">
+	        </form>
+	</div>
+
+     
+        <div class="list">
+            <div ng-repeat="todo in todos" >
+                <label class="done-{{todo.done}}">
+                    <input type="checkbox" ng-model="todo.done" onclick="" /><span class="list-item">{{todo.text}}</span></label>
+            </div>
+
+
+        </div>
+
+	<div class="buttonContainer">
+		<div class="button" ng-click="archive()" >Remove completed</div>
+		<div class="button" ng-click="saveText()" onclick="nativeBridge.hideKb();nativeBridge.dismissMe();" >Close</div>
+	</div>
+
+    </div>
+
+
+
+    <!-- Don't remove the following code or the pillow won't show. Just ignore it... -->
+    <div style="display:none">
+        <div id="buttonZeroText"></div>
+        <div id="searchEntry"></div>
+        <div id="title"></div>
+        <div id="text"></div>
+    </div>
+
+</body>
+</html>

@@ -26,13 +26,27 @@ if( orientation != "U" ){
 	    height: Pillow.pointsToPixels(258)
 	}
 }
+
+
+/* External output processor - START -*/
+var span_counter=0;
+var dialog_path="/mnt/us/extensions/kindlemenu/bin/html/info";
+
+function external_script(script) {
+span_counter++;
+nativeBridge.setLipcProperty("com.lab126.system", "sendEvent", "; sh -c '/mnt/us/extensions/kindlemenu/bin/sh/script_to_variable.sh "+span_counter+' "'+script+'" "'+dialog_path+'"\'');
+return "<span id='span_"+span_counter+"' ></span>";
+}
+/* External output processor - END */
+
+
 </script>
 
   </head>
 <body onload="SampleCustomDialog.init();">
 
 <div class="scrollableText">
-<pre>
+<pre id="pre">
 <script>
 function yesNo(state){
 if (state==0) return "No(0)";
@@ -41,6 +55,8 @@ if (state==1) return "Yes(1)";
 
 document.writeln("********* 1- Device *********");
 document.writeln("1.1 DSN: "+nativeBridge.getStringLipcProperty( "com.lab126.system", "usid"));
+document.write("1.2 Firmware version: ");
+document.writeln(external_script("cat /etc/prettyversion.txt"));
 document.write("\n"+nativeBridge.getStringLipcProperty( "com.lab126.wifid", "711"));
 document.writeln("********* 6- Miscellaneous *********");
 document.writeln("Battery level: "+nativeBridge.getIntLipcProperty( "com.lab126.powerd", "battLevel")+"%");

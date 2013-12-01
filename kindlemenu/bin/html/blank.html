@@ -1,0 +1,38 @@
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+
+
+        <script type="text/javascript" src="///usr/share/webkit-1.0/pillow/strings/sample_custom_dialog_strings.js"></script>
+        <script type="text/javascript" src="///usr/share/webkit-1.0/pillow/javascripts/local_debug.js"></script>
+        <script type="text/javascript" src="///usr/share/webkit-1.0/pillow/javascripts/constants.js"></script>
+        <script type="text/javascript" src="///usr/share/webkit-1.0/pillow/javascripts/pillow.js"></script>
+        <script type="text/javascript" src="///usr/share/webkit-1.0/pillow/javascripts/sample_custom_dialog.js"></script>
+        <script type="text/javascript" src="///usr/share/webkit-1.0/pillow/javascripts/window_title.js"></script>
+
+<script>
+        /* Sets the dialog dimensions */
+        var State = {
+            width: Pillow.pointsToPixels(255),
+            height: Pillow.pointsToPixels(318)
+        }
+
+        /* Loads landscape.css if the device is in landscape mode, and change dialog ratio */
+        var orientation = nativeBridge.getStringLipcProperty("com.lab126.winmgr", "orientation");
+        if (orientation != "U") {
+            State = {
+                width: Pillow.pointsToPixels(345),
+                height: Pillow.pointsToPixels(228)
+            }
+        }
+</script>
+
+  </head>
+<body onload="SampleCustomDialog.init();">
+
+
+<!-- Don't remove the following code or the pillow won't show. Just ignore it... -->
+<div style="display:none"><div id="buttonZeroText"></div><div id="searchEntry"></div><div id="title"></div><div id="text" ></div></div>
+
+  </body>
+</html>
