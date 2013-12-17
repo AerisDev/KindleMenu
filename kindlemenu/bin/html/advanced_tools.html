@@ -19,7 +19,6 @@ var State = {
 }
 
 
-
 // ### LAUNCHERS FUNCTIONS ###
 
 function usbnet_status(){
@@ -45,7 +44,7 @@ nativeBridge.setLipcProperty( "com.lab126.appmgrd", "start", "app://com.lab126.b
 }
 
 function dismiss_all(){
-	var MESSAGE='{"pillowId": "../../../../mnt/us/extensions/kindlemenu/bin/kindlemenupage","function":"nativeBridge.dismissMe();"}';
+	var MESSAGE='{"pillowId": "../../../../mnt/us/extensions/kindlemenu/bin/kindlemenupage","function":"custom_dismiss();"}';
 	nativeBridge.setLipcProperty( "com.lab126.pillow", "interrogatePillow", MESSAGE);
 nativeBridge.dismissMe();
 }
